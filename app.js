@@ -138,6 +138,15 @@ function showToast(message) {
   toastTimer = setTimeout(() => toast.classList.remove("visible"), 2800);
 }
 
+function isLocalImageUrl(value) {
+  try {
+    const url = new URL(value, window.location.href);
+    return url.protocol === "blob:" && url.origin === window.location.origin;
+  } catch {
+    return false;
+  }
+}
+
 function addMessage(text, role, imageUrl) {
   const message = document.createElement("article");
   message.className = `message ${role}`;
@@ -151,7 +160,7 @@ function addMessage(text, role, imageUrl) {
   label.className = "message-label";
   label.textContent = role === "user" ? "You" : "Riley";
   content.append(label, document.createTextNode(text));
-  if (imageUrl) {
+  if (imageUrl && isLocalImageUrl(imageUrl)) {
     const image = document.createElement("img");
     image.src = imageUrl;
     image.alt = language().imageAttached;
@@ -279,13 +288,13 @@ input.addEventListener("keydown", (event) => {
 imageInput.addEventListener("change", () => {
   const file = imageInput.files?.[0];
   if (!file) return;
-  if (!file.type.startsWith("image/") || file.size > 8 * 1024 * 1024) {
+  if (!["image/png", "image/jpeg", "image/gif", "image/webp", "image/avif"].includes(file.type) || file.size > 8 * 1024 * 1024) {
     clearAttachment();
     showToast(language().badImage);
     return;
   }
   clearAttachment();
-  attachedImage = { file, url: URL.createObjectURL(file) };
+  attachedImage = { url: URL.createObjectURL(file) };
   const preview = document.createElement("img");
   preview.src = attachedImage.url;
   preview.alt = "";
