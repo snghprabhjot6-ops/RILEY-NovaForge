@@ -15,7 +15,7 @@ const translations = {
     listening: "Listening…", voiceEnabled: "Voice output enabled.", voiceDisabled: "Voice output disabled.",
     imageAttached: "Image attached", removeImage: "Remove image", speakingNotice: "Using the best available voice for this language.",
     codePlaceholder: "Describe the code problem you’re working on…", visionPlaceholder: "Attach an image and tell Riley what you’d like to know…",
-    dictate: "Dictate message"
+    dictate: "Dictate message", imagePreviewUnavailable: "Image preview isn’t supported in this browser."
   },
   hi: {
     newChat: "नई बातचीत", workspace: "कार्यक्षेत्र", chat: "चैट", coding: "कोडिंग सहायता", vision: "चित्र और दृष्टि",
@@ -33,7 +33,7 @@ const translations = {
     listening: "सुन रहा हूँ…", voiceEnabled: "आवाज़ चालू है।", voiceDisabled: "आवाज़ बंद है।",
     imageAttached: "चित्र जोड़ा गया", removeImage: "चित्र हटाएँ", speakingNotice: "इस भाषा के लिए उपलब्ध सबसे उपयुक्त आवाज़ का उपयोग हो रहा है।",
     codePlaceholder: "कोड की समस्या के बारे में बताएँ…", visionPlaceholder: "चित्र जोड़ें और बताएँ कि आप क्या जानना चाहते हैं…",
-    dictate: "बोलकर लिखें"
+    dictate: "बोलकर लिखें", imagePreviewUnavailable: "इस ब्राउज़र में चित्र का पूर्वावलोकन उपलब्ध नहीं है।"
   },
   fr: {
     newChat: "Nouvelle conversation", workspace: "ESPACE DE TRAVAIL", chat: "Discussion", coding: "Aide au code", vision: "Image et vision",
@@ -51,7 +51,7 @@ const translations = {
     listening: "Écoute en cours…", voiceEnabled: "Synthèse vocale activée.", voiceDisabled: "Synthèse vocale désactivée.",
     imageAttached: "Image jointe", removeImage: "Supprimer l’image", speakingNotice: "Utilisation de la voix disponible la plus adaptée à cette langue.",
     codePlaceholder: "Décrivez le problème de code rencontré…", visionPlaceholder: "Joignez une image et dites ce que vous voulez savoir…",
-    dictate: "Dicter le message"
+    dictate: "Dicter le message", imagePreviewUnavailable: "L’aperçu d’image n’est pas disponible dans ce navigateur."
   },
   bn: {
     newChat: "নতুন কথোপকথন", workspace: "কর্মক্ষেত্র", chat: "চ্যাট", coding: "কোডিং সহায়তা", vision: "ছবি ও দৃষ্টি",
@@ -69,7 +69,7 @@ const translations = {
     listening: "শুনছি…", voiceEnabled: "কণ্ঠস্বর চালু হয়েছে।", voiceDisabled: "কণ্ঠস্বর বন্ধ হয়েছে।",
     imageAttached: "ছবি যোগ হয়েছে", removeImage: "ছবি সরান", speakingNotice: "এই ভাষার জন্য উপলব্ধ উপযুক্ত কণ্ঠ ব্যবহার করা হচ্ছে।",
     codePlaceholder: "কোডের সমস্যাটি বর্ণনা করুন…", visionPlaceholder: "ছবি যোগ করে কী জানতে চান তা বলুন…",
-    dictate: "কথা বলে লিখুন"
+    dictate: "কথা বলে লিখুন", imagePreviewUnavailable: "এই ব্রাউজারে ছবির পূর্বরূপ সমর্থিত নয়।"
   },
   sa: {
     newChat: "नवा संवादः", workspace: "कार्यक्षेत्रम्", chat: "संवादः", coding: "सङ्केतलेखनसाहाय्यम्", vision: "चित्रदर्शनम्",
@@ -87,7 +87,7 @@ const translations = {
     listening: "शृणोमि…", voiceEnabled: "वाक्-सुविधा चालिता।", voiceDisabled: "वाक्-सुविधा निष्क्रियीकृता।",
     imageAttached: "चित्रं योजितम्", removeImage: "चित्रं निष्कासयतु", speakingNotice: "अस्याः भाषायाः कृते उपलब्धः उपयुक्तः स्वरः प्रयुज्यते।",
     codePlaceholder: "सङ्केतलेखनसमस्यां वर्णयतु…", visionPlaceholder: "चित्रं योजयित्वा ज्ञातुम् इच्छितं कथयतु…",
-    dictate: "वदित्वा लिखतु"
+    dictate: "वदित्वा लिखतु", imagePreviewUnavailable: "अस्मिन् जालपुटे चित्रस्य पूर्वदर्शनं नोपलब्धम्।"
   },
   es: {
     newChat: "Nueva conversación", workspace: "ESPACIO DE TRABAJO", chat: "Chat", coding: "Ayuda con código", vision: "Imagen y visión",
@@ -105,7 +105,7 @@ const translations = {
     listening: "Escuchando…", voiceEnabled: "Voz activada.", voiceDisabled: "Voz desactivada.",
     imageAttached: "Imagen adjunta", removeImage: "Quitar imagen", speakingNotice: "Usando la voz disponible más adecuada para este idioma.",
     codePlaceholder: "Describe el problema de código que tienes…", visionPlaceholder: "Adjunta una imagen y cuéntale a Riley qué quieres saber…",
-    dictate: "Dictar mensaje"
+    dictate: "Dictar mensaje", imagePreviewUnavailable: "La vista previa de imágenes no está disponible en este navegador."
   }
 };
 
@@ -123,6 +123,7 @@ const attachmentPreview = document.querySelector("#attachment-preview");
 const toast = document.querySelector("#toast");
 const micButton = document.querySelector("#mic-button");
 let attachedImage = null;
+let imageLoadId = 0;
 let toastTimer;
 let recognition;
 let activeMode = "chat";
@@ -138,16 +139,7 @@ function showToast(message) {
   toastTimer = setTimeout(() => toast.classList.remove("visible"), 2800);
 }
 
-function isLocalImageUrl(value) {
-  try {
-    const url = new URL(value, window.location.href);
-    return url.protocol === "blob:" && url.origin === window.location.origin;
-  } catch {
-    return false;
-  }
-}
-
-function addMessage(text, role, imageUrl) {
+function addMessage(text, role, imageCanvas) {
   const message = document.createElement("article");
   message.className = `message ${role}`;
   const avatar = document.createElement("span");
@@ -160,11 +152,14 @@ function addMessage(text, role, imageUrl) {
   label.className = "message-label";
   label.textContent = role === "user" ? "You" : "Riley";
   content.append(label, document.createTextNode(text));
-  if (imageUrl && isLocalImageUrl(imageUrl)) {
-    const image = document.createElement("img");
-    image.src = imageUrl;
-    image.alt = language().imageAttached;
-    content.append(image);
+  if (imageCanvas) {
+    const preview = document.createElement("canvas");
+    preview.width = imageCanvas.width;
+    preview.height = imageCanvas.height;
+    preview.getContext("2d").drawImage(imageCanvas, 0, 0);
+    preview.setAttribute("role", "img");
+    preview.setAttribute("aria-label", language().imageAttached);
+    content.append(preview);
   }
   message.append(avatar, content);
   messages.append(message);
@@ -184,7 +179,7 @@ function submitMessage(text = input.value) {
     return;
   }
   welcome.hidden = true;
-  addMessage(cleanText || language().imageAttached, "user", attachedImage?.url);
+  addMessage(cleanText || language().imageAttached, "user", attachedImage?.canvas);
   const hadImage = Boolean(attachedImage);
   clearAttachment();
   input.value = "";
@@ -194,7 +189,7 @@ function submitMessage(text = input.value) {
 }
 
 function clearAttachment() {
-  if (attachedImage) URL.revokeObjectURL(attachedImage.url);
+  imageLoadId += 1;
   attachedImage = null;
   imageInput.value = "";
   attachmentPreview.replaceChildren();
@@ -294,20 +289,39 @@ imageInput.addEventListener("change", () => {
     return;
   }
   clearAttachment();
-  attachedImage = { url: URL.createObjectURL(file) };
-  const preview = document.createElement("img");
-  preview.src = attachedImage.url;
-  preview.alt = "";
-  const name = document.createElement("span");
-  name.textContent = file.name;
-  const remove = document.createElement("button");
-  remove.type = "button";
-  remove.textContent = "×";
-  remove.setAttribute("aria-label", language().removeImage);
-  remove.addEventListener("click", clearAttachment);
-  attachmentPreview.append(preview, name, remove);
-  attachmentPreview.hidden = false;
-  sendButton.disabled = false;
+  if (!window.createImageBitmap) {
+    showToast(language().imagePreviewUnavailable);
+    return;
+  }
+  const loadId = imageLoadId;
+  sendButton.disabled = true;
+  window.createImageBitmap(file).then((bitmap) => {
+    if (loadId !== imageLoadId) {
+      bitmap.close();
+      return;
+    }
+    const scale = Math.min(1, 320 / bitmap.width, 230 / bitmap.height);
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.max(1, Math.round(bitmap.width * scale));
+    canvas.height = Math.max(1, Math.round(bitmap.height * scale));
+    canvas.getContext("2d").drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+    bitmap.close();
+    attachedImage = { canvas };
+    canvas.setAttribute("role", "img");
+    canvas.setAttribute("aria-label", language().imageAttached);
+    const name = document.createElement("span");
+    name.textContent = file.name;
+    const remove = document.createElement("button");
+    remove.type = "button";
+    remove.textContent = "×";
+    remove.setAttribute("aria-label", language().removeImage);
+    remove.addEventListener("click", clearAttachment);
+    attachmentPreview.append(canvas, name, remove);
+    attachmentPreview.hidden = false;
+    sendButton.disabled = false;
+  }).catch(() => {
+    if (loadId === imageLoadId) showToast(language().badImage);
+  });
 });
 
 voiceToggle.addEventListener("click", () => {
