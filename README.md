@@ -1,291 +1,139 @@
-# Riley — Your Personal AI Assistant
+# RILEY — A Personal AI Assistant by NovaForge
 
-### Intelligence, with a human touch.
+> Intelligence, with a human touch.
 
-*Built to listen. Designed to understand. Created to assist.*
+Riley is a personal assistant designed to make everyday interaction with software feel more natural: type or speak, choose a language, and let Riley respond in a recognizable female-voice experience where the operating system provides a suitable voice.
 
----
+This repository now contains a modular Python implementation and preserves the earlier browser prototype on the `copilot/add-ai-agent-riley` branch. Riley is a NovaForge project.
 
-## Hey, meet Riley!
+## Project status
 
-Riley is a personal AI assistant that I independently developed with the idea of making artificial intelligence feel a little more personal.
+Riley is an early working implementation. It runs without an AI service or API key. The current conversational engine is a small, deterministic local backend—not a general-purpose language model.
 
-Most of us interact with technology through buttons, menus, search bars and complicated interfaces. I wanted to explore a different approach. What if interacting with technology could feel as simple as having a conversation?
+### Implemented and tested
 
-That's where Riley comes in.
+- Modular Python package and command-line personal assistant interface
+- Configurable `local` and `echo` conversation backends
+- Local conversational intents for greetings, help, time, date, thanks, and safe arithmetic
+- English, Hindi, French, Bengali, Sanskrit, and Spanish response text
+- Persistent conversation history stored outside tracked source files
+- macOS speech output through the built-in `say` command
+- Preference for the configured feminine voice (Samantha by default) when installed
+- Portable speech-output fallback prepared for Windows through `pyttsx3`
+- Microphone input through `SpeechRecognition`
+- Offline-first recognition through PocketSphinx; optional Google recognition can be selected by configuration
+- Environment-based, validated configuration with a safe `.env.example`
+- Recoverable error handling and automated tests
 
-Riley features a female voice, conversational intelligence and the ability to communicate in multiple languages. She is designed to make everyday interactions with AI feel more natural and approachable.
+### Implemented with environment-dependent behavior
 
-This project is not just about building another chatbot. It's about exploring what a personal AI assistant can become.
+- The exact voice depends on voices installed on the computer. Riley prefers the configured voice and then a feminine-named voice, but falls back safely if neither is available.
+- Microphone access depends on operating-system permission and a working audio device.
+- PocketSphinx language-model availability varies by selected language. The six-language text interface is implemented; offline speech recognition may need additional language data beyond English.
+- Windows speech output has an implementation path but has not yet been verified on Windows hardware.
 
-## Why I Built Riley
+### Planned, not implemented
 
-Artificial intelligence has changed how we interact with technology. However, I believe there is still a lot of room to improve how AI assistants communicate with people.
+- A model-backed conversational provider
+- Long-term memory and user profiles
+- Calendar, email, reminders, and application integrations
+- Image understanding and multimodal input
+- Graphical desktop and mobile interfaces
+- Wake-word activation and background operation
+- Automated Windows test coverage and packaging
 
-I wanted to build something that:
+See [Project Status](docs/PROJECT_STATUS.md) and [Roadmap](docs/ROADMAP.md) for the evidence behind these labels.
 
-- Feels natural to interact with.
-- Communicates without unnecessary complexity.
-- Isn't restricted to a single language.
-- Has a recognizable identity of its own.
-- Can evolve into a more capable personal assistant over time.
+## Installation on macOS
 
-Building Riley has also been an opportunity for me to experiment with artificial intelligence, voice interfaces and conversational systems while learning more about the technology behind modern AI assistants.
+### 1. Prerequisites
 
-## What Makes Riley Different?
+- macOS with Python 3.11 or newer
+- A working microphone for speech input
+- Xcode Command Line Tools if your Python environment needs to compile an audio dependency
+- Homebrew is recommended for installing PortAudio when PyAudio cannot use a prebuilt wheel
 
-Riley is built around three fundamental ideas: simplicity, accessibility and personality.
+If PortAudio is needed:
 
-The goal is not to overwhelm users with hundreds of features. Instead, it is to create an assistant that people can comfortably interact with.
+```bash
+brew install portaudio
+```
 
-Riley's identity is an important part of that experience. Rather than presenting herself as an anonymous AI system, she has her own name and voice.
+### 2. Create an isolated environment
 
-I want interacting with Riley to feel less like operating software and more like communicating with a personal assistant.
+From the repository root:
 
-## Key Features
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
 
-### Intelligent Conversations
+### 3. Configure Riley
 
-Riley is designed to communicate with users through AI-powered conversations, respond to questions and assist with everyday requirements.
+```bash
+cp .env.example .env
+```
 
-### Voice Interaction
+The defaults use the local backend, English, macOS voice output, offline PocketSphinx speech recognition, and `.riley/history.json` for local conversation history. No API key is required.
 
-Riley features a female voice that brings an additional layer of personality to the assistant.
+Available languages: `en`, `hi`, `fr`, `bn`, `sa`, and `es`.
 
-Voice-based communication is an important part of the project's direction because it allows users to interact with artificial intelligence in a more familiar way.
+### 4. Start Riley
 
-### Multilingual Communication
+```bash
+python -m riley
+```
 
-Language should not be a barrier when interacting with technology.
+Inside Riley, use `/help` to see commands. `/listen` captures microphone input, `/history` shows the current history, `/clear` removes it, and `/voice off` disables speech for that session.
 
-Riley supports communication in multiple languages, making the assistant accessible to a wider range of users.
+macOS may ask for microphone permission the first time Riley listens. Permission can be reviewed in **System Settings → Privacy & Security → Microphone**.
 
-### Personal Assistance
+## Automated tests
 
-Riley is designed to serve as a personal assistant rather than being limited to one specific industry or purpose.
+```bash
+python -m pytest
+```
 
-The long-term goal is to make her useful across different aspects of everyday life, learning, productivity and technology.
+The automated suite tests configuration validation, both backends, multilingual behavior, safe calculation, persistence, assistant orchestration, locale selection, and voice preference logic. It uses test doubles instead of activating the microphone or speakers.
 
-### A Growing AI Ecosystem
-
-Riley is an evolving project. Her current capabilities represent the foundation of what I hope to build in the future.
-
-## Design Philosophy
-
-Riley follows five core principles.
-
-| Principle | What it means |
-|---|---|
-| Simplicity | Technology should be easy to interact with. |
-| Accessibility | AI should not be limited by language barriers. |
-| Personality | An assistant should have a recognizable identity. |
-| Reliability | Capabilities should be tested before being presented as dependable. |
-| User Control | Users should remain in control of their AI assistant. |
-
-## What Could Riley Help With?
-
-Riley is intended to grow into an assistant capable of supporting a variety of everyday activities.
-
-Potential applications include:
-
-- General conversations and questions
-- Educational assistance
-- Language practice
-- Brainstorming and creative thinking
-- Personal productivity
-- Research assistance
-- Everyday planning
-- Technical assistance
-- Digital task management
-
-Some of these applications represent the intended direction of the project rather than fully implemented capabilities.
-
-## Development Roadmap
-
-Riley is being developed with a long-term vision. The following roadmap outlines possible directions for future development.
-
-### Phase 1 — The Foundation
-
-- [x] Core AI assistant
-- [x] Conversational interface
-- [x] Female voice
-- [x] Multilingual communication
-- [ ] Expanded functionality testing
-- [ ] Comprehensive technical documentation
-
-### Phase 2 — Personal Intelligence
-
-- [ ] Persistent memory
-- [ ] User preference management
-- [ ] Personalized responses
-- [ ] Conversation history management
-- [ ] Customizable assistant personality
-- [ ] Improved contextual understanding
-
-### Phase 3 — Productivity and Integration
-
-- [ ] Calendar integration
-- [ ] Email assistance
-- [ ] Reminders and notifications
-- [ ] Document assistance
-- [ ] Application integrations
-- [ ] Real-time information retrieval
-
-### Phase 4 — Autonomous Assistance
-
-- [ ] Intelligent task planning
-- [ ] Multi-step task execution
-- [ ] Permission-based computer interaction
-- [ ] Workflow automation
-- [ ] Proactive assistance
-- [ ] Human approval for consequential actions
-
-### Phase 5 — Beyond the Screen
-
-- [ ] Computer vision
-- [ ] Wake-word activation
-- [ ] Smart home integration
-- [ ] Cross-platform applications
-- [ ] Custom voice options
-- [ ] Advanced multimodal interaction
-
-The roadmap is subject to change as development progresses. Not every proposed feature is guaranteed to become part of Riley.
-
-## Technology
-
-Riley brings together several areas of modern artificial intelligence:
-
-- Conversational AI
-- Natural language processing
-- Voice synthesis
-- Multilingual communication
-- Human–computer interaction
-
-Detailed information about the underlying architecture, dependencies, installation process and AI models will be added to the technical documentation.
-
-## Getting Started
-
-Installation and configuration instructions will be published once the setup process has been properly documented and tested.
-
-Future documentation is expected to cover:
-
-- System requirements
-- Installation instructions
-- Initial configuration
-- Voice settings
-- Language settings
-- Troubleshooting
-- Available capabilities
-
-## Privacy, Security and Responsible AI
-
-A personal assistant may eventually interact with sensitive information, applications and personal devices.
-
-That makes privacy and security particularly important.
-
-As Riley evolves, I intend to prioritize:
-
-- Transparent AI behaviour
-- Responsible handling of user information
-- Explicit permissions for sensitive actions
-- User control over personal data
-- Clear communication of system limitations
-- Secure application integrations
-
-These are development principles, not claims of completed security implementations.
-
-Riley should assist users, not take control away from them.
-
-## Current Limitations
-
-Like any developing AI project, Riley has limitations.
-
-AI-generated responses may occasionally be inaccurate, incomplete or inconsistent. Voice quality and language performance may also vary.
-
-Riley should not be considered a replacement for professional medical, legal or financial advice.
-
-The project will continue to improve through experimentation, testing and feedback.
-
-## The Bigger Picture
-
-My vision for Riley goes beyond answering questions.
-
-I imagine a future where personal AI assistants can help people organize their lives, interact with their devices, manage everyday tasks and access information without requiring them to navigate complicated software.
-
-An assistant that understands preferences.
-
-An assistant that communicates in the user's language.
-
-An assistant that works alongside the user rather than getting in their way.
-
-There is still a considerable amount of work between the current project and that vision, but Riley is a step in that direction.
-
-## About the Developer
-
-**Prabhjot Singh**
-
-Independent Developer | AI Enthusiast
-
-Riley is an independently developed project driven by my interest in artificial intelligence, software development and the future of human–computer interaction.
-
-This project represents both a technical experiment and a personal learning journey.
-
-I believe that building something is one of the best ways to understand it. Riley is a reflection of that belief.
-
-## Feedback and Suggestions
-
-Constructive feedback is always appreciated.
-
-If you have ideas for improving Riley, discover an issue or have suggestions for future capabilities, feel free to share them through the appropriate project channels.
-
-Good technology is rarely built perfectly on the first attempt. It improves through experimentation, feedback and continuous development.
-
-## Frequently Asked Questions
-
-**Is Riley a chatbot?**
-
-Riley is a conversational AI assistant with the broader goal of becoming a capable personal digital assistant.
-
-**Can Riley speak?**
-
-Yes. Riley features a female voice interface.
-
-**Does Riley support multiple languages?**
-
-Yes. Multilingual communication is one of Riley's core capabilities.
-
-**Is Riley fully autonomous?**
-
-Autonomous task execution is part of the proposed development roadmap.
-
-**Who developed Riley?**
-
-Riley was independently developed by Prabhjot Singh.
-
-**Is Riley open source?**
-
-Licensing and source-code distribution terms have not yet been announced.
-
-## License
-
-Licensing and distribution terms are to be determined.
-
----
-
-## A Note from the Developer
-
-Riley started with a simple idea: what if artificial intelligence could feel a little more personal?
-
-There is still a lot to learn, a lot to build and a lot to improve. I don't expect Riley to become everything I imagine overnight.
-
-But every great project starts somewhere.
-
-This is Riley's beginning.
-
----
-
-# RILEY
-
-*Intelligence, with a human touch.*
-
-**Built with curiosity. Driven by ambition. Developed with purpose.**
+## Configuration
+
+| Variable | Default | Purpose |
+|---|---|---|
+| `RILEY_BACKEND` | `local` | Selects `local` or `echo` |
+| `RILEY_LANGUAGE` | `en` | Chooses Riley's response language |
+| `RILEY_VOICE_ENABLED` | `true` | Enables spoken responses |
+| `RILEY_VOICE_NAME` | `Samantha` | Preferred installed voice |
+| `RILEY_SPEECH_ENGINE` | `sphinx` | Selects offline `sphinx` or network-based `google` recognition |
+| `RILEY_HISTORY_FILE` | `.riley/history.json` | Local conversation-history path |
+| `RILEY_LOG_LEVEL` | `INFO` | Logging detail |
+
+`.env` and Riley's runtime history are ignored by Git. Never commit credentials or private conversation data.
+
+## Repository structure
+
+```text
+riley/                    Python application package
+  backends/               Conversation backend interface and local implementations
+  assistant.py            Assistant orchestration
+  cli.py                  Personal assistant command-line interface
+  config.py               Environment configuration and validation
+  history.py              Atomic local conversation persistence
+  speech.py               Speech-to-text input
+  voice.py                macOS-first and portable speech output
+tests/                    Automated tests
+docs/                     Status and proposed roadmap
+.github/ISSUE_TEMPLATE/   Structured issue forms
+```
+
+## Security and privacy
+
+Riley does not require credentials in its current local configuration. Conversation history is written to a user-configurable local file with restrictive permissions where supported. The default speech engine is offline. Choosing the optional `google` speech engine sends audio through the recognition service used by the installed library.
+
+Please read [SECURITY.md](SECURITY.md) before reporting a vulnerability. Licensing and distribution terms have not been declared; no license is implied by this repository.
+
+## Contributing
+
+Use the issue templates for bugs and proposals, and keep claims aligned with tested behavior. See [CONTRIBUTING.md](CONTRIBUTING.md).
