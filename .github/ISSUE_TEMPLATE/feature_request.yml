@@ -1,0 +1,41 @@
+name: Feature proposal
+description: Propose an improvement without presenting it as implemented
+title: "[Proposal]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+      description: What user need would this address?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Describe the experience, permissions, and expected limitations.
+    validations:
+      required: true
+  - type: textarea
+    id: privacy
+    attributes:
+      label: Privacy and security impact
+      description: Note any microphone, personal-data, network, credential, or automation implications.
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Primary platform
+      options:
+        - macOS
+        - Windows
+        - Cross-platform
+  - type: checkboxes
+    id: status
+    attributes:
+      label: Status acknowledgement
+      options:
+        - label: I understand this is a proposal, not a currently implemented capability.
+          required: true
