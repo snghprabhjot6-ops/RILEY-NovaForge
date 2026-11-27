@@ -1,26 +1,11 @@
-# Security Policy
+# Security and privacy
 
-## Supported versions
+Riley is a single-user app for a trusted computer. The graphical server binds only to `127.0.0.1`, checks exact Host and request Origin, and requires a random per-launch token for writes. It serves a fixed list of assets, renders chat content as plain text, and includes a restrictive Content Security Policy. Do not publish it through a reverse proxy or port forward; it does not provide account authentication, TLS or tenant isolation.
 
-Riley is in early development and has no published stable release. Security fixes currently apply to the latest commit on the default branch.
+The built-in backend does not contact an AI service. Ollama mode sends recent chat context to the configured loopback HTTP endpoint, with proxies and redirects disabled. Browser dictation may transmit microphone audio to the browser vendor's recognition service; the user opts in and reviews the draft before sending. Optional CLI Google recognition also uses a network service.
 
-## Reporting a vulnerability
+Chats and exports can contain personal information. The web app stores plaintext SQLite data on the computer, while the CLI stores separate JSON history. Files use restrictive permissions where the OS supports them; this is not encryption or protection from another app running under the same account. Browser preferences do not contain conversation text. Runtime data and `.env` files are ignored by Git.
 
-Do not include exploit details, credentials, private conversations, or personal data in a public issue.
+Never commit credentials, conversation databases or private exports. Riley does not need an API key for its supplied backends. No shell commands or arbitrary file access are exposed to models. Arithmetic uses a constrained syntax tree rather than `eval`.
 
-Use GitHub's private vulnerability-reporting feature when it is available for this repository. If it is not available, contact the repository maintainer through an established private channel and include:
-
-- The affected file or component
-- Steps to reproduce the problem
-- The potential impact
-- A suggested mitigation, if known
-
-Please allow time for investigation before disclosing details publicly. No response-time guarantee is currently offered.
-
-## Credential and data handling
-
-- Never commit `.env`, API keys, passwords, tokens, or private conversation history.
-- Use `.env.example` only for non-secret configuration names and safe defaults.
-- Treat `.riley/history.json` as private user data.
-- Review third-party speech-service privacy terms before changing from the offline speech engine.
-- Keep consequential integrations disabled until they have explicit permission checks and tests.
+Report suspected vulnerabilities privately to the repository owner through an available private GitHub reporting channel. Do not include real secrets, private conversations or exploit details in public issues. Dependency and packaging checks should be reviewed before distributing a build. The Windows binary build is unsigned.

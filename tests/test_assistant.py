@@ -44,3 +44,16 @@ def test_assistant_uses_language_locale_for_listening(tmp_path: Path) -> None:
         settings, EchoBackend(), ConversationHistory(settings.history_file), speech=FixedSpeech()
     )
     assert assistant.listen() == "heard:hi-IN"
+
+
+def test_failed_backend_does_not_leave_an_unanswered_turn(tmp_path):
+    import pytest
+    from riley.exceptions import BackendError
+    class FailedBackend:
+        def generate(self, *args):
+            raise RuntimeError('unavailable')
+    settings = Settings(history_file=tmp_path/'history.json')
+    assistant = RileyAssistant(settings, FailedBackend(), ConversationHistory(settings.history_file))
+    with pytest.raises(BackendError):
+        assistant.respond('hello', speak=False)
+    assert assistant.history.messages == ()

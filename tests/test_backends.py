@@ -26,3 +26,12 @@ def test_local_backend_rejects_code_execution() -> None:
 
 def test_echo_backend() -> None:
     assert EchoBackend().generate(user_message("test"), "en") == "You said: test"
+
+
+def test_greeting_does_not_match_inside_words():
+    assert 'learning' in LocalBackend().generate(user_message('Explain this thing'), 'en')
+
+
+def test_calculation_rejects_complex_and_infinite_results():
+    for prompt in ('calculate (-1)**0.5', 'calculate 1' + '0' * 99, 'calculate 9' + '**10' * 20):
+        assert 'safely' in LocalBackend().generate(user_message(prompt), 'en')

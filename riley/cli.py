@@ -13,7 +13,7 @@ HELP = "Commands: /listen, /history, /clear, /voice on, /voice off, /help, /quit
 
 
 def build_assistant(settings: Settings) -> RileyAssistant:
-    return RileyAssistant(settings, create_backend(settings.backend), ConversationHistory(settings.history_file))
+    return RileyAssistant(settings, create_backend(settings.backend, settings), ConversationHistory(settings.history_file))
 
 
 def main() -> int:

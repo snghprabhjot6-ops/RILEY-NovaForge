@@ -28,3 +28,5 @@ Thank you for helping Riley grow.
 - Distinguish implemented, tested, environment-dependent, and planned features.
 
 Licensing and external contribution terms have not been declared. Discuss substantial contributions with the maintainer before investing significant work.
+
+For graphical UI changes, run `npm ci --ignore-scripts`, `npm run check`, and `npm test` with Node.js 18+. These DOM tests complement API tests; they do not replace visual or physical audio checks. Keep frontend assets self-contained and escape model content by rendering it as text.

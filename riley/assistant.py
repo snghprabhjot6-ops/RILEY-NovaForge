@@ -34,14 +34,15 @@ class RileyAssistant:
         clean_prompt = prompt.strip()
         if not clean_prompt:
             raise ValueError("Please enter a message")
-        self.history.add(Message(role="user", content=clean_prompt, language=self.settings.language))
+        message = Message(role="user", content=clean_prompt, language=self.settings.language)
         try:
-            response = self.backend.generate(self.history.messages, self.settings.language).strip()
+            response = self.backend.generate((*self.history.messages, message), self.settings.language).strip()
         except Exception as exc:
             self.log.exception("Conversation backend failed")
             raise BackendError("Riley could not generate a response") from exc
         if not response:
             raise BackendError("The conversation backend returned an empty response")
+        self.history.add(message)
         self.history.add(Message(role="assistant", content=response, language=self.settings.language))
         should_speak = self.settings.voice_enabled if speak is None else speak
         if should_speak:
