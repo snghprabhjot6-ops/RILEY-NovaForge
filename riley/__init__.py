@@ -4,4 +4,4 @@ from .assistant import RileyAssistant
 from .config import Settings
 
 __all__ = ["RileyAssistant", "Settings"]
-__version__ = "0.1.0"
+__version__ = "0.2.0"
