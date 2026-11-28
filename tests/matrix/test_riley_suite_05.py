@@ -275,3 +275,7 @@ def test_multilingual_sa_help_068() -> None:
     reply = _BACKEND.generate([Message('user', 'साहाय्य करोतु #68', language='sa')], 'sa')
     assert reply == TEXT['sa']['help']
 
+def test_multilingual_sa_thanks_069() -> None:
+    reply = _BACKEND.generate([Message('user', 'धन्यवाद #69', language='sa')], 'sa')
+    assert reply == TEXT['sa']['thanks']
+
