@@ -278,3 +278,6 @@ def test_ui_astryx_invariant_089() -> None:
 def test_ui_astryx_invariant_090() -> None:
     assert '--font-weight-normal' in _ASTRYX
 
+def test_ui_astryx_invariant_091() -> None:
+    assert '--font-weight-medium' in _ASTRYX
+
