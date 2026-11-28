@@ -167,3 +167,7 @@ def test_arith_precedence_041() -> None:
     reply = _BACKEND.generate([Message('user', 'calculate 125 + 4 * 7 - 41')], 'en')
     assert reply == 'The answer is 112.'
 
+def test_arith_precedence_042() -> None:
+    reply = _BACKEND.generate([Message('user', 'calculate 128 + 5 * 1 - 42')], 'en')
+    assert reply == 'The answer is 91.'
+
