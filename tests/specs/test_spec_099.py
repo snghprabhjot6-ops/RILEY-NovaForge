@@ -18,6 +18,7 @@ CASES: list[tuple[str, str, str, str]] = [
     ('user', 'Verified Riley payload 9813 (es)', 'es', 'llama3.2-r9813'),
     ('assistant', 'Verified Riley payload 9814 (bn)', 'bn', 'llama3.2-r9814'),
     ('system', 'Verified Riley payload 9815 (sa)', 'sa', 'llama3.2-r9815'),
+    ('user', 'Verified Riley payload 9816 (en)', 'en', 'llama3.2-r9816'),
 ]
 
 
