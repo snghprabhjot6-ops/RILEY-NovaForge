@@ -394,3 +394,6 @@ def test_settings_bool_093() -> None:
 def test_settings_bool_094() -> None:
     assert _as_bool('0', True) is False
 
+def test_settings_bool_095() -> None:
+    assert _as_bool('false', True) is False
+
