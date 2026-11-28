@@ -180,3 +180,7 @@ def test_settings_reject_url_037() -> None:
     with pytest.raises(ConfigurationError):
         Settings(ollama_url='http://127.0.0.1:11434#frag').validate()
 
+def test_settings_reject_url_038() -> None:
+    with pytest.raises(ConfigurationError):
+        Settings(ollama_url='http://127.0.0.1:99999').validate()
+
