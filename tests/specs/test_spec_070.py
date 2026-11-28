@@ -6,6 +6,7 @@ _BACKEND = LocalBackend()
 
 CASES: list[str] = [
     'Record candidate status entry 6901',
+    'Record validate status entry 6902',
 ]
 
 
