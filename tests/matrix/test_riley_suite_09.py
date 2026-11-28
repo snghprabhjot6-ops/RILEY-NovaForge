@@ -474,3 +474,7 @@ def test_history_bad_limit_075(tmp_path: Path) -> None:
     with pytest.raises(ValueError):
         ConversationHistory(tmp_path / 'bad_75.json', max_messages=-7)
 
+def test_history_bad_limit_076(tmp_path: Path) -> None:
+    with pytest.raises(ValueError):
+        ConversationHistory(tmp_path / 'bad_76.json', max_messages=-8)
+
