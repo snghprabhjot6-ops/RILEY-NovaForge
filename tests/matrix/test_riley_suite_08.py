@@ -483,3 +483,7 @@ def test_factory_local_088() -> None:
     backend = create_backend('local')
     assert isinstance(backend, LocalBackend)
 
+def test_factory_unknown_089() -> None:
+    with pytest.raises(ValueError):
+        create_backend('unknown_backend_89')
+
