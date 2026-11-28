@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#10151b">
+    <meta name="description" content="Riley is a multilingual personal assistant interface for chat, coding, images, and voice.">
+    <link rel="icon" href="data:,">
+    <title>Riley — Personal AI Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Assistant tools">
+        <a class="brand" href="#" aria-label="Riley home">
+          <span class="brand-mark" aria-hidden="true">R</span>
+          <span>riley<span class="brand-period">.</span></span>
+        </a>
+
+        <button class="new-chat" id="new-chat" type="button">
+          <span aria-hidden="true">＋</span> <span data-i18n="newChat">New conversation</span>
+        </button>
+
+        <p class="side-label" data-i18n="workspace">WORKSPACE</p>
+        <nav class="tool-nav" aria-label="Assistant capabilities">
+          <button class="tool-link selected" type="button" data-mode="chat">
+            <span class="tool-icon" aria-hidden="true">✳</span><span data-i18n="chat">Chat</span>
+          </button>
+          <button class="tool-link" type="button" data-mode="code">
+            <span class="tool-icon" aria-hidden="true">{ }</span><span data-i18n="coding">Coding help</span>
+          </button>
+          <button class="tool-link" type="button" data-mode="vision">
+            <span class="tool-icon" aria-hidden="true">▧</span><span data-i18n="vision">Image & vision</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <div class="privacy-note">
+            <span class="privacy-icon" aria-hidden="true">◈</span>
+            <div>
+              <strong data-i18n="privateTitle">Your space, your pace</strong>
+              <p data-i18n="privateCopy">This demo keeps your conversation in this browser.</p>
+            </div>
+          </div>
+          <div class="profile">
+            <span class="avatar">R</span>
+            <span><strong>Riley</strong><small data-i18n="personalAssistant">Personal assistant</small></span>
+            <span class="profile-dots" aria-hidden="true">···</span>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div class="status"><span class="status-dot"></span><span data-i18n="localDemo">Local demo</span></div>
+          <div class="preferences">
+            <label class="language-control">
+              <span class="sr-only" data-i18n="languageLabel">Response language</span>
+              <span aria-hidden="true">文</span>
+              <select id="language" aria-label="Response language">
+                <option value="en">English</option>
+                <option value="hi">हिन्दी</option>
+                <option value="fr">Français</option>
+                <option value="bn">বাংলা</option>
+                <option value="sa">संस्कृतम्</option>
+                <option value="es">Español</option>
+              </select>
+            </label>
+            <button class="voice-toggle" id="voice-toggle" type="button" aria-pressed="false">
+              <span aria-hidden="true">♫</span><span data-i18n="voiceOff">Voice off</span>
+            </button>
+          </div>
+        </header>
+
+        <section class="conversation" aria-live="polite" aria-label="Conversation">
+          <div class="welcome" id="welcome">
+            <div class="welcome-mark" aria-hidden="true"><span>R</span><i></i></div>
+            <p class="eyebrow" data-i18n="eyebrow">YOUR PERSONAL ASSISTANT</p>
+            <h1 data-i18n="greeting">A little help goes a long way.</h1>
+            <p class="welcome-copy" data-i18n="welcomeCopy">I’m Riley. What would you like to work on today?</p>
+            <div class="suggestions" aria-label="Try asking">
+              <button type="button" class="suggestion" data-prompt="Help me plan my day">
+                <span aria-hidden="true">◷</span><span data-i18n="suggestPlan">Help me plan my day</span><span class="arrow" aria-hidden="true">↗</span>
+              </button>
+              <button type="button" class="suggestion" data-prompt="Help me debug a coding problem">
+                <span aria-hidden="true">{ }</span><span data-i18n="suggestCode">Help me with some code</span><span class="arrow" aria-hidden="true">↗</span>
+              </button>
+              <button type="button" class="suggestion" data-prompt="I want to understand an image">
+                <span aria-hidden="true">▧</span><span data-i18n="suggestImage">Understand an image</span><span class="arrow" aria-hidden="true">↗</span>
+              </button>
+            </div>
+          </div>
+          <div class="messages" id="messages"></div>
+        </section>
+
+        <section class="composer-wrap" aria-label="Message Riley">
+          <div class="attachment-preview" id="attachment-preview" hidden></div>
+          <form class="composer" id="composer">
+            <label class="attach-button" title="Attach an image">
+              <input id="image-input" type="file" accept="image/png,image/jpeg,image/gif,image/webp,image/avif" hidden>
+              <span aria-hidden="true">＋</span><span class="sr-only" data-i18n="attachImage">Attach an image</span>
+            </label>
+            <textarea id="message-input" rows="1" maxlength="4000" data-i18n-placeholder="messagePlaceholder" placeholder="Ask Riley anything…"></textarea>
+            <button class="mic-button" id="mic-button" type="button" aria-label="Dictate message" title="Dictate message" hidden>⌁</button>
+            <button class="send-button" id="send-button" type="submit" aria-label="Send message" disabled>↑</button>
+          </form>
+          <p class="composer-hint" data-i18n="composerHint">Riley’s local demo does not connect to an AI service. Your messages stay on this device.</p>
+        </section>
+      </main>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

@@ -4,7 +4,6 @@
 
 Riley gives you a calm space to ask a question, work out a calculation, or have a conversation with a local AI model. Type or dictate, choose your language, and hear replies in an available installed voice. Riley is a **NovaForge** project.
 
-## Open Riley on Windows
 
 1. Install **Python 3.11 or newer** from [python.org](https://www.python.org/downloads/windows/). Enable **Add python.exe to PATH**.
 2. Download this repository using **Code → Download ZIP**, then **extract the whole ZIP**.
@@ -29,7 +28,7 @@ Built-in mode is a small deterministic assistant, **not a general-purpose AI mod
 
 ## Full AI conversations with Ollama
 
-Install [Ollama](https://ollama.com/) separately and start it, then download a model:
+
 
 ```sh
 ollama pull llama3.2
@@ -64,7 +63,6 @@ The web app uses browser audio APIs and needs no Python audio packages. **Voice 
 
 Dictation is off until you start it and approve microphone access. Browser recognition may send audio to the browser vendor's service; the app explains this before starting. It inserts a draft and never sends the dictated message automatically. Built-in text chat remains available if audio is unsupported.
 
-The CLI uses separate optional audio dependencies:
 
 ```sh
 python -m pip install -r requirements-voice.txt
