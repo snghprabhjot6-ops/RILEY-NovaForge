@@ -251,3 +251,6 @@ def test_ui_astryx_invariant_080() -> None:
 def test_ui_astryx_invariant_081() -> None:
     assert '--focus-outline-color' in _ASTRYX
 
+def test_ui_astryx_invariant_082() -> None:
+    assert '--focus-outline-offset' in _ASTRYX
+
