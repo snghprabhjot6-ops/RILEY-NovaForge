@@ -65,3 +65,6 @@ def test_ui_astryx_invariant_018() -> None:
 def test_ui_astryx_invariant_019() -> None:
     assert '@layer reset, astryx-base, astryx-theme;' in _ASTRYX
 
+def test_ui_astryx_invariant_020() -> None:
+    assert '.astryx-button {' in _ASTRYX
+
