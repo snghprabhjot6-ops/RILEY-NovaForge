@@ -92,3 +92,6 @@ def test_ui_astryx_invariant_027() -> None:
 def test_ui_astryx_invariant_028() -> None:
     assert 'prefers-reduced-motion: reduce' in _ASTRYX
 
+def test_ui_astryx_invariant_029() -> None:
+    assert 'pointer-events: none;' in _ASTRYX
+
