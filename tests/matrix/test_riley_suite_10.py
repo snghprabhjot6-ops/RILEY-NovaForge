@@ -50,3 +50,6 @@ def test_ui_astryx_invariant_013() -> None:
 def test_ui_astryx_invariant_014() -> None:
     assert 'id="new-chat"' in _HTML and 'data-astryx-component="button"' in _HTML
 
+def test_ui_astryx_invariant_015() -> None:
+    assert 'id="send"' in _HTML and 'data-astryx-component="icon-button"' in _HTML
+
