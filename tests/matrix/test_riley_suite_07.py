@@ -341,3 +341,7 @@ def test_message_roundtrip_068() -> None:
     restored = Message.from_dict(msg.to_dict())
     assert restored == msg
 
+def test_message_reject_role_069() -> None:
+    with pytest.raises(ValueError):
+        Message(role='invalid_role_69', content='hello')  # type: ignore[arg-type]
+
