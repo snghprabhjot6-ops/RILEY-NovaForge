@@ -7,6 +7,7 @@ _BACKEND = LocalBackend()
 CASES: list[str] = [
     'Record archive status entry 7101',
     'Record thinking status entry 7102',
+    'Record vehicle status entry 7103',
 ]
 
 
