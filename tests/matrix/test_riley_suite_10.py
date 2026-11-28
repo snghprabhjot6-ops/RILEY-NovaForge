@@ -95,3 +95,6 @@ def test_ui_astryx_invariant_028() -> None:
 def test_ui_astryx_invariant_029() -> None:
     assert 'pointer-events: none;' in _ASTRYX
 
+def test_ui_astryx_invariant_030() -> None:
+    assert 'var(--color-background-body)' in _STYLE
+
