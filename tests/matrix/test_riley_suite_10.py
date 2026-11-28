@@ -275,3 +275,6 @@ def test_ui_astryx_invariant_088() -> None:
 def test_ui_astryx_invariant_089() -> None:
     assert '--font-family-code' in _ASTRYX
 
+def test_ui_astryx_invariant_090() -> None:
+    assert '--font-weight-normal' in _ASTRYX
+
