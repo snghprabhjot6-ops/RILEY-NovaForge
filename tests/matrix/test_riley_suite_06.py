@@ -160,3 +160,7 @@ def test_settings_reject_url_032() -> None:
     with pytest.raises(ConfigurationError):
         Settings(ollama_url='http://10.0.0.1:11434').validate()
 
+def test_settings_reject_url_033() -> None:
+    with pytest.raises(ConfigurationError):
+        Settings(ollama_url='http://example.org:11434').validate()
+
