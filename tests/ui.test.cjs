@@ -153,3 +153,38 @@ test("new chat resets visible messages without deleting earlier conversation", a
     a.close();
   }
 });
+
+test("every static and dynamic button uses the Astryx button system", async () => {
+  const a = await app();
+  try {
+    const d = a.w.document;
+    d.querySelector('[data-prompt="Hello Riley"]').click();
+    await settle();
+    const buttons = [...d.querySelectorAll("button")];
+    assert.ok(buttons.length >= 16);
+    for (const btn of buttons) {
+      assert.ok(
+        btn.classList.contains("astryx-button"),
+        `Expected Astryx class on button: ${btn.outerHTML}`,
+      );
+      assert.ok(
+        btn.dataset.astryxComponent,
+        `Expected data-astryx-component on button: ${btn.outerHTML}`,
+      );
+      assert.ok(
+        btn.dataset.variant,
+        `Expected data-variant on button: ${btn.outerHTML}`,
+      );
+    }
+    assert.equal(d.documentElement.dataset.astryxTheme, "neutral");
+    assert.ok(d.querySelector('link[href="/astryx.css"]'));
+    d.getElementById("voice").click();
+    assert.equal(d.getElementById("voice").getAttribute("aria-pressed"), "true");
+    assert.equal(
+      d.getElementById("voice").querySelector(".astryx-button-label").textContent,
+      "Voice on",
+    );
+  } finally {
+    a.close();
+  }
+});
