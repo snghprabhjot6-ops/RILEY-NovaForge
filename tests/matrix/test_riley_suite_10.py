@@ -134,3 +134,6 @@ def test_ui_astryx_invariant_041() -> None:
 def test_ui_astryx_invariant_042() -> None:
     assert 'id="settings-open"' in _HTML
 
+def test_ui_astryx_invariant_043() -> None:
+    assert 'id="theme"' in _HTML
+
