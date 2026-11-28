@@ -257,3 +257,6 @@ def test_ui_astryx_invariant_082() -> None:
 def test_ui_astryx_invariant_083() -> None:
     assert '--duration-fast' in _ASTRYX
 
+def test_ui_astryx_invariant_084() -> None:
+    assert '--ease-standard' in _ASTRYX
+
