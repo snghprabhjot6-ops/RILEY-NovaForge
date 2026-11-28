@@ -6,6 +6,7 @@ _BACKEND = LocalBackend()
 
 CASES: list[tuple[str, str]] = [
     ('what is (106 - 14) * 3?', 'The answer is 276.'),
+    ('calc (14 * 6) / 3.', 'The answer is 28.'),
 ]
 
 
