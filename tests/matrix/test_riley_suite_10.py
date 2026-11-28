@@ -137,3 +137,6 @@ def test_ui_astryx_invariant_042() -> None:
 def test_ui_astryx_invariant_043() -> None:
     assert 'id="theme"' in _HTML
 
+def test_ui_astryx_invariant_044() -> None:
+    assert 'id="mobile-settings"' in _HTML
+
