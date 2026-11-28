@@ -263,3 +263,7 @@ def test_multilingual_bn_date_065() -> None:
     reply = _BACKEND.generate([Message('user', 'আজকের তারিখ #65', language='bn')], 'bn')
     assert reply.startswith(TEXT['bn']['date'].split('{value}')[0])
 
+def test_multilingual_bn_unknown_066() -> None:
+    reply = _BACKEND.generate([Message('user', 'অজানা বিষয় #66', language='bn')], 'bn')
+    assert reply == TEXT['bn']['unknown']
+
