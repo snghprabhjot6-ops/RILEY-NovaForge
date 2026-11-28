@@ -214,3 +214,10 @@ def test_history_bounds_030(tmp_path: Path) -> None:
     assert len(hist.messages) == 1
     assert hist.messages[-1].content == 'turn-2'
 
+def test_history_bounds_031(tmp_path: Path) -> None:
+    hist = ConversationHistory(tmp_path / 'h_31.json', max_messages=2)
+    for n in range(4):
+        hist.add(Message('user', f'turn-{n}'))
+    assert len(hist.messages) == 2
+    assert hist.messages[-1].content == 'turn-3'
+
