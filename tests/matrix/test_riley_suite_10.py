@@ -218,3 +218,6 @@ def test_ui_astryx_invariant_069() -> None:
 def test_ui_astryx_invariant_070() -> None:
     assert '--color-overlay-pressed' in _ASTRYX
 
+def test_ui_astryx_invariant_071() -> None:
+    assert '--color-text-primary' in _ASTRYX
+
