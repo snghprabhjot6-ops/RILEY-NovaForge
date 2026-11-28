@@ -11,3 +11,6 @@ _ICON = (_STATIC / 'icon.svg').read_text(encoding='utf-8')
 def test_ui_astryx_invariant_001() -> None:
     assert 'A clearer mind' in _HTML
 
+def test_ui_astryx_invariant_002() -> None:
+    assert 'data-astryx-theme="neutral"' in _HTML
+
