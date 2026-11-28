@@ -359,3 +359,7 @@ def test_multilingual_fr_date_089() -> None:
     reply = _BACKEND.generate([Message('user', 'quelle date #89', language='fr')], 'fr')
     assert reply.startswith(TEXT['fr']['date'].split('{value}')[0])
 
+def test_multilingual_fr_unknown_090() -> None:
+    reply = _BACKEND.generate([Message('user', 'sujet inconnu #90', language='fr')], 'fr')
+    assert reply == TEXT['fr']['unknown']
+
