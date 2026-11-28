@@ -155,3 +155,6 @@ def test_ui_astryx_invariant_048() -> None:
 def test_ui_astryx_invariant_049() -> None:
     assert 'id="voice"' in _HTML
 
+def test_ui_astryx_invariant_050() -> None:
+    assert 'id="send"' in _HTML
+
