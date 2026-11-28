@@ -319,3 +319,7 @@ def test_multilingual_hi_hello_079() -> None:
     reply = _BACKEND.generate([Message('user', 'नमस्ते #79', language='hi')], 'hi')
     assert reply == TEXT['hi']['hello']
 
+def test_multilingual_hi_help_080() -> None:
+    reply = _BACKEND.generate([Message('user', 'सहायता चाहिए #80', language='hi')], 'hi')
+    assert reply == TEXT['hi']['help']
+
