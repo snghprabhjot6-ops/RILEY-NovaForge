@@ -5,6 +5,7 @@ from riley.models import Message
 CASES: list[tuple[str, str, str, str]] = [
     ('user', 'Verified Riley payload 9801 (es)', 'es', 'llama3.2-r9801'),
     ('assistant', 'Verified Riley payload 9802 (bn)', 'bn', 'llama3.2-r9802'),
+    ('system', 'Verified Riley payload 9803 (sa)', 'sa', 'llama3.2-r9803'),
 ]
 
 
