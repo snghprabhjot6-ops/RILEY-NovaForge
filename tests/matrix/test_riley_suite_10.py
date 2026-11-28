@@ -68,3 +68,6 @@ def test_ui_astryx_invariant_019() -> None:
 def test_ui_astryx_invariant_020() -> None:
     assert '.astryx-button {' in _ASTRYX
 
+def test_ui_astryx_invariant_021() -> None:
+    assert '.astryx-button[data-variant="primary"]' in _ASTRYX
+
