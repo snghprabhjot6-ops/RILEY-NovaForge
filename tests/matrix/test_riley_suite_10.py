@@ -107,3 +107,6 @@ def test_ui_astryx_invariant_032() -> None:
 def test_ui_astryx_invariant_033() -> None:
     assert 'var(--spacing-4)' in _STYLE
 
+def test_ui_astryx_invariant_034() -> None:
+    assert 'var(--radius-container)' in _STYLE
+
