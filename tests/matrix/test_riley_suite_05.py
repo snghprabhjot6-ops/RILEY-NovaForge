@@ -335,3 +335,7 @@ def test_multilingual_hi_date_083() -> None:
     reply = _BACKEND.generate([Message('user', 'आज की तारीख #83', language='hi')], 'hi')
     assert reply.startswith(TEXT['hi']['date'].split('{value}')[0])
 
+def test_multilingual_hi_unknown_084() -> None:
+    reply = _BACKEND.generate([Message('user', 'अज्ञात विषय #84', language='hi')], 'hi')
+    assert reply == TEXT['hi']['unknown']
+
