@@ -24,6 +24,7 @@ CASES: list[tuple[str, str, str]] = [
     ('hi', 'Riley echo check #6217 [hi]', 'You said: Riley echo check #6217 [hi]'),
     ('fr', 'Riley echo check #6218 [fr]', 'You said: Riley echo check #6218 [fr]'),
     ('es', 'Riley echo check #6219 [es]', 'You said: Riley echo check #6219 [es]'),
+    ('bn', 'Riley echo check #6220 [bn]', 'You said: Riley echo check #6220 [bn]'),
 ]
 
 
