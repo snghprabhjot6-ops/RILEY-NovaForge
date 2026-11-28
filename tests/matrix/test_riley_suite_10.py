@@ -110,3 +110,6 @@ def test_ui_astryx_invariant_033() -> None:
 def test_ui_astryx_invariant_034() -> None:
     assert 'var(--radius-container)' in _STYLE
 
+def test_ui_astryx_invariant_035() -> None:
+    assert 'select::picker-icon' in _STYLE
+
