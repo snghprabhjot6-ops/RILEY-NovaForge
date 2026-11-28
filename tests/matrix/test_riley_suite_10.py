@@ -113,3 +113,6 @@ def test_ui_astryx_invariant_034() -> None:
 def test_ui_astryx_invariant_035() -> None:
     assert 'select::picker-icon' in _STYLE
 
+def test_ui_astryx_invariant_036() -> None:
+    assert 'function createAstryxButton' in _APP
+
