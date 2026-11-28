@@ -59,3 +59,6 @@ def test_ui_astryx_invariant_016() -> None:
 def test_ui_astryx_invariant_017() -> None:
     assert 'id="mic"' in _HTML and 'data-astryx-component="toggle-button"' in _HTML
 
+def test_ui_astryx_invariant_018() -> None:
+    assert 'data-variant="destructive"' in _HTML
+
