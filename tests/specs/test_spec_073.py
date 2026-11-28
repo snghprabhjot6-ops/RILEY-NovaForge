@@ -32,6 +32,7 @@ CASES: list[str] = [
     'Record scholar status entry 7225',
     'Record commercial status entry 7226',
     'Record integrate status entry 7227',
+    'Record parameter status entry 7228',
 ]
 
 
