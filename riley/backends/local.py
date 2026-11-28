@@ -64,6 +64,8 @@ def _safe_calculate(expression: str) -> int | float:
     if len(expression) > 100:
         raise ValueError("Expression is too long")
     tree = ast.parse(expression, mode="eval")
+    if sum(1 for _ in ast.walk(tree)) > 64:
+        raise ValueError("Expression is too complex")
 
     def bounded(value: int | float) -> int | float:
         if isinstance(value, complex) or abs(value) > 1_000_000_000_000 or not math.isfinite(value):
@@ -87,6 +89,8 @@ def _safe_calculate(expression: str) -> int | float:
     result = evaluate(tree)
     if isinstance(result, complex) or not math.isfinite(result) or abs(result) > 1_000_000_000_000:
         raise ValueError("Result is too large")
+    if isinstance(result, float) and result.is_integer():
+        return int(result)
     return result
 
 
@@ -99,19 +103,27 @@ class LocalBackend(ConversationBackend):
         normalized = prompt.casefold()
         if re.search(r"\b(hello|hi|hey|bonjour|hola)\b", normalized) or any(word in normalized for word in ("नमस्ते", "নমস্কার")):
             return phrases["hello"]
-        if any(word in normalized for word in ("help", "सहायता", "aide", "ayuda", "সাহায্য", "साहाय्य")):
+        if re.search(r"\b(help|aide|ayuda)\b", normalized) or any(word in normalized for word in ("सहायता", "সাহায্য", "साहाय्य")):
             return phrases["help"]
-        if any(word in normalized for word in ("thank", "धन्यवाद", "merci", "gracias", "ধন্যবাদ")):
+        if re.search(r"\b(thank|thanks|merci|gracias)\b", normalized) or any(word in normalized for word in ("धन्यवाद", "ধন্যবাদ")):
             return phrases["thanks"]
-        if any(word in normalized for word in ("time", "समय", "heure", "hora", "সময়")):
+        if re.search(r"\b(time|heure|hora)\b", normalized) or any(word in normalized for word in ("समय", "সময়")):
             return phrases["time"].format(value=datetime.now().strftime("%H:%M"))
-        if any(word in normalized for word in ("date", "तारीख", "दिनाङ्क", "fecha", "তারিখ")):
+        if re.search(r"\b(date|fecha)\b", normalized) or any(word in normalized for word in ("तारीख", "दिनाङ्क", "তারিখ")):
             return phrases["date"].format(value=datetime.now().strftime("%Y-%m-%d"))
 
-        match = re.search(r"(?:calculate|calc|what is|गणना|calcule|calcular|হিসাব)\s*[:：]?\s*([\d\s+\-*/().%]+)$", normalized)
-        if match:
+        match = re.search(
+            r"(?:calculate|calc|what is|गणना|calcule|calcular|হিসাব)\s*[:：]?\s*([\d\s+\-*/().%]+?)\s*[?!.]*$",
+            normalized,
+        )
+        expr = match.group(1).strip() if match else ""
+        if not expr:
+            bare = re.fullmatch(r"\s*([\d\s+\-*/().%]+?)\s*[?!.]*", normalized)
+            if bare and re.search(r"\d", bare.group(1)) and re.search(r"[+\-*/%]", bare.group(1)):
+                expr = bare.group(1).strip()
+        if expr:
             try:
-                value = _safe_calculate(match.group(1).strip())
+                value = _safe_calculate(expr)
                 return phrases["calculation"].format(value=value)
             except (SyntaxError, ValueError, ZeroDivisionError, OverflowError):
                 return phrases["calculation_error"]
