@@ -398,3 +398,9 @@ def test_store_title_norm_060(tmp_path: Path) -> None:
     store.append_turn(chat['id'], Message('user', '  Line one 60\n\t  line two  '), Message('assistant', 'ok'))
     assert store.list()[0]['title'] == 'Line one 60 line two'
 
+def test_store_title_norm_061(tmp_path: Path) -> None:
+    store = ChatStore(tmp_path / 's_61.db')
+    chat = store.create()
+    store.append_turn(chat['id'], Message('user', '  Line one 61\n\t  line two  '), Message('assistant', 'ok'))
+    assert store.list()[0]['title'] == 'Line one 61 line two'
+
