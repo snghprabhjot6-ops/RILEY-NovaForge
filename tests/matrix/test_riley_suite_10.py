@@ -104,3 +104,6 @@ def test_ui_astryx_invariant_031() -> None:
 def test_ui_astryx_invariant_032() -> None:
     assert 'var(--color-border)' in _STYLE
 
+def test_ui_astryx_invariant_033() -> None:
+    assert 'var(--spacing-4)' in _STYLE
+
