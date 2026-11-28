@@ -10,6 +10,7 @@ CASES: list[str] = [
     'Record vehicle status entry 6503',
     'Record holiday status entry 6504',
     'Record scholar status entry 6505',
+    'Record commercial status entry 6506',
 ]
 
 
