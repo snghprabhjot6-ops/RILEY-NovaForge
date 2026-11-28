@@ -431,3 +431,7 @@ def test_factory_ollama_075() -> None:
     assert isinstance(backend, OllamaBackend)
     assert backend.model == 'llama3.2:v75'
 
+def test_factory_local_076() -> None:
+    backend = create_backend('local')
+    assert isinstance(backend, LocalBackend)
+
