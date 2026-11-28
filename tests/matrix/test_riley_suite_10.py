@@ -299,3 +299,6 @@ def test_ui_astryx_invariant_096() -> None:
 def test_ui_astryx_invariant_097() -> None:
     assert '--font-size-xl' in _ASTRYX
 
+def test_ui_astryx_invariant_098() -> None:
+    assert '--font-size-2xl' in _ASTRYX
+
