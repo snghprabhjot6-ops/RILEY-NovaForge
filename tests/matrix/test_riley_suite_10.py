@@ -254,3 +254,6 @@ def test_ui_astryx_invariant_081() -> None:
 def test_ui_astryx_invariant_082() -> None:
     assert '--focus-outline-offset' in _ASTRYX
 
+def test_ui_astryx_invariant_083() -> None:
+    assert '--duration-fast' in _ASTRYX
+
