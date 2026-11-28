@@ -9,6 +9,7 @@ import logging
 from pathlib import Path
 import secrets
 import threading
+from urllib.parse import unquote, urlparse
 import webbrowser
 
 from .backends import create_backend
@@ -18,6 +19,7 @@ from .models import Message
 from .store import ChatStore
 
 STATIC = Path(__file__).with_name('static')
+STATIC_FILES = {'/', '/app.js', '/style.css', '/astryx.css', '/icon.svg'}
 
 
 class AppServer(ThreadingHTTPServer):
@@ -37,16 +39,19 @@ class Handler(BaseHTTPRequestHandler):
         # Do not log conversation bodies or tokens.
         logging.getLogger('riley.web').debug(format, *args)
 
-    def send(self, status, value, mime='application/json; charset=utf-8'):
+    def send(self, status, value, mime='application/json; charset=utf-8', head_only=False):
         data = json.dumps(value, ensure_ascii=False).encode() if mime.startswith('application/json') else value
         self.send_response(status)
         self.send_header('Content-Type', mime)
         self.send_header('Content-Length', str(len(data)))
         self.send_header('Cache-Control', 'no-store')
         self.send_header('X-Content-Type-Options', 'nosniff')
+        self.send_header('X-Frame-Options', 'DENY')
+        self.send_header('Referrer-Policy', 'no-referrer')
         self.send_header('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'")
         self.end_headers()
-        self.wfile.write(data)
+        if not head_only:
+            self.wfile.write(data)
 
     def allowed(self):
         expected = f'127.0.0.1:{self.server.server_port}'
@@ -59,25 +64,36 @@ class Handler(BaseHTTPRequestHandler):
             return False
         return True
 
-    def do_GET(self):
+    def _serve_get(self, head_only=False):
         if not self.allowed():
             return
-        if self.path == '/api/state':
+        path = urlparse(self.path).path
+        if path == '/api/state':
             self.send(200, {'token': self.server.token, 'chats': self.server.store.list(),
                             'language': self.server.settings.language, 'backend': self.server.settings.backend,
-                            'model': self.server.settings.ollama_model})
-        elif self.path.startswith('/api/chats/'):
+                            'model': self.server.settings.ollama_model}, head_only=head_only)
+        elif path.startswith('/api/chats/'):
+            chat_id = unquote(path.removeprefix('/api/chats/'))
+            if not chat_id:
+                self.send(404, {'error': 'Conversation not found.'}, head_only=head_only)
+                return
             try:
-                messages = self.server.store.messages(self.path.removeprefix('/api/chats/'))
-                self.send(200, {'messages': [m.to_dict() for m in messages]})
+                messages = self.server.store.messages(chat_id)
+                self.send(200, {'messages': [m.to_dict() for m in messages]}, head_only=head_only)
             except KeyError:
-                self.send(404, {'error': 'Conversation not found.'})
-        elif self.path in {'/', '/app.js', '/style.css', '/icon.svg'}:
-            name = 'index.html' if self.path == '/' else self.path[1:]
+                self.send(404, {'error': 'Conversation not found.'}, head_only=head_only)
+        elif path in STATIC_FILES:
+            name = 'index.html' if path == '/' else path[1:]
             mime = {'html': 'text/html', 'js': 'text/javascript', 'css': 'text/css', 'svg': 'image/svg+xml'}[name.rsplit('.', 1)[1]]
-            self.send(200, (STATIC / name).read_bytes(), mime + '; charset=utf-8')
+            self.send(200, (STATIC / name).read_bytes(), mime + '; charset=utf-8', head_only=head_only)
         else:
-            self.send(404, {'error': 'Not found.'})
+            self.send(404, {'error': 'Not found.'}, head_only=head_only)
+
+    def do_GET(self):
+        self._serve_get(head_only=False)
+
+    def do_HEAD(self):
+        self._serve_get(head_only=True)
 
     def do_POST(self):
         if not self.allowed():
@@ -85,6 +101,7 @@ class Handler(BaseHTTPRequestHandler):
         if not secrets.compare_digest(self.headers.get('X-Riley-Token', ''), self.server.token):
             self.send(403, {'error': 'Session expired. Reload Riley.'})
             return
+        path = urlparse(self.path).path
         try:
             length = int(self.headers.get('Content-Length', '0'))
             if not 0 < length <= 65_536:
@@ -92,13 +109,16 @@ class Handler(BaseHTTPRequestHandler):
             body = json.loads(self.rfile.read(length))
             if not isinstance(body, dict):
                 raise ValueError('Expected a JSON object.')
-            if self.path == '/api/chats':
+            if path == '/api/chats':
                 self.send(201, self.server.store.create())
-            elif self.path == '/api/delete':
+            elif path == '/api/delete':
+                chat_id = body.get('chat_id', '')
+                if not isinstance(chat_id, str) or not chat_id.strip():
+                    raise ValueError('Invalid conversation ID.')
                 with self.server.turn_lock:
-                    self.server.store.delete(body.get('chat_id', ''))
+                    self.server.store.delete(chat_id)
                 self.send(200, {'ok': True})
-            elif self.path == '/api/chat':
+            elif path == '/api/chat':
                 self.chat(body)
             else:
                 self.send(404, {'error': 'Not found.'})
@@ -114,6 +134,9 @@ class Handler(BaseHTTPRequestHandler):
         prompt = body.get('prompt')
         if not isinstance(prompt, str) or not prompt.strip() or len(prompt) > 12_000:
             raise ValueError('Enter a message between 1 and 12,000 characters.')
+        chat_id = body.get('chat_id', '')
+        if not isinstance(chat_id, str) or not chat_id.strip():
+            raise ValueError('Select or create a conversation first.')
         config = replace(self.server.settings, language=body.get('language', self.server.settings.language),
                          backend=body.get('backend', self.server.settings.backend),
                          ollama_model=body.get('model', self.server.settings.ollama_model))
@@ -124,7 +147,6 @@ class Handler(BaseHTTPRequestHandler):
             self.send(409, {'error': 'Riley is finishing another response. Please try again.'})
             return
         try:
-            chat_id = body.get('chat_id', '')
             history = self.server.store.messages(chat_id)
             message = Message(role='user', content=prompt.strip(), language=config.language)
             try:
