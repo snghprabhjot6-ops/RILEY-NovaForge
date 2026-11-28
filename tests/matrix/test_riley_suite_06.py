@@ -355,3 +355,6 @@ def test_settings_reject_model_080() -> None:
 def test_settings_bool_081() -> None:
     assert _as_bool('1', True) is True
 
+def test_settings_bool_082() -> None:
+    assert _as_bool('true', True) is True
+
