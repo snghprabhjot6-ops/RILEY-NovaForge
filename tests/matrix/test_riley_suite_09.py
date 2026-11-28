@@ -242,3 +242,9 @@ def test_history_bounds_034(tmp_path: Path) -> None:
     assert len(hist.messages) == 5
     assert hist.messages[-1].content == 'turn-6'
 
+def test_store_title_norm_035(tmp_path: Path) -> None:
+    store = ChatStore(tmp_path / 's_35.db')
+    chat = store.create()
+    store.append_turn(chat['id'], Message('user', '  Line one 35\n\t  line two  '), Message('assistant', 'ok'))
+    assert store.list()[0]['title'] == 'Line one 35 line two'
+
