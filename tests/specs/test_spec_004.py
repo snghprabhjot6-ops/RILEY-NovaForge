@@ -89,6 +89,7 @@ CASES: list[tuple[str, str]] = [
     ('calc (144 * 6) / 3.', 'The answer is 288.'),
     ('(408 % 11) + 7!', 'The answer is 8.'),
     ('calculate 2 ** 2 + 84', 'The answer is 88.'),
+    ('calculate 392 + 7 * 1?', 'The answer is 399.'),
 ]
 
 
