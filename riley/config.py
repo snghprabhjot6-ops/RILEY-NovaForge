@@ -4,7 +4,13 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 
-from dotenv import load_dotenv
+from urllib.parse import urlparse
+
+try:
+    from dotenv import load_dotenv
+except ImportError:  # pragma: no cover - optional fallback in minimal environments
+    def load_dotenv(*_args: object, **_kwargs: object) -> bool:
+        return False
 
 from .exceptions import ConfigurationError
 
@@ -51,7 +57,7 @@ class Settings:
 
         settings = cls(
             backend=os.getenv("RILEY_BACKEND", "local").strip().lower(),
-            ollama_url=os.getenv("RILEY_OLLAMA_URL", "http://127.0.0.1:11434").rstrip("/"),
+            ollama_url=os.getenv("RILEY_OLLAMA_URL", "http://127.0.0.1:11434").strip().rstrip("/"),
             ollama_model=os.getenv("RILEY_OLLAMA_MODEL", "llama3.2").strip(),
             language=os.getenv("RILEY_LANGUAGE", "en").strip().lower(),
             voice_enabled=_as_bool(os.getenv("RILEY_VOICE_ENABLED"), True),
@@ -66,11 +72,14 @@ class Settings:
     def validate(self) -> None:
         if self.backend not in {"local", "echo", "ollama"}:
             raise ConfigurationError("RILEY_BACKEND must be 'local', 'echo', or 'ollama'")
-        from urllib.parse import urlparse
         url = urlparse(self.ollama_url)
+        try:
+            _ = url.port
+        except ValueError as exc:
+            raise ConfigurationError("RILEY_OLLAMA_URL has an invalid port") from exc
         if url.scheme != "http" or url.hostname not in {"127.0.0.1", "localhost", "::1"} or url.username or url.password or url.query or url.fragment or url.path not in {"", "/"}:
             raise ConfigurationError("RILEY_OLLAMA_URL must be a local HTTP Ollama address")
-        if not self.ollama_model or len(self.ollama_model) > 100:
+        if not self.ollama_model or len(self.ollama_model) > 100 or any(ch.isspace() for ch in self.ollama_model):
             raise ConfigurationError("Set a valid RILEY_OLLAMA_MODEL")
         if self.language not in SUPPORTED_LANGUAGES:
             supported = ", ".join(sorted(SUPPORTED_LANGUAGES))
