@@ -67,3 +67,8 @@ def test_settings_valid_013() -> None:
     cfg.validate()
     assert cfg.language in SUPPORTED_LANGUAGES
 
+def test_settings_valid_014() -> None:
+    cfg = Settings(backend='ollama', ollama_url='http://localhost:11435', ollama_model='model-14', language='es', speech_engine='sphinx', log_level='CRITICAL')
+    cfg.validate()
+    assert cfg.language in SUPPORTED_LANGUAGES
+
