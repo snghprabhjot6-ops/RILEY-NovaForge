@@ -125,3 +125,6 @@ def test_ui_astryx_invariant_038() -> None:
 def test_ui_astryx_invariant_039() -> None:
     assert 'm.role === "user" ? "Y" : "R"' in _APP
 
+def test_ui_astryx_invariant_040() -> None:
+    assert all(ch not in _HTML for ch in ('＋', '⚙', '◐', '⌫', '♩', '⌗', '☷', '◌'))
+
