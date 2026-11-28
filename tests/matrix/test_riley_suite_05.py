@@ -99,3 +99,7 @@ def test_multilingual_es_unknown_024() -> None:
     reply = _BACKEND.generate([Message('user', 'tema desconocido', language='es')], 'es')
     assert reply == TEXT['es']['unknown']
 
+def test_multilingual_bn_hello_025() -> None:
+    reply = _BACKEND.generate([Message('user', 'নমস্কার', language='bn')], 'bn')
+    assert reply == TEXT['bn']['hello']
+
