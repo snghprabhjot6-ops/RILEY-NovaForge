@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 from collections.abc import Sequence
+from http.client import HTTPException
 from urllib.error import URLError
 from urllib.request import Request, build_opener, ProxyHandler, HTTPRedirectHandler
 
@@ -37,5 +38,5 @@ class OllamaBackend(ConversationBackend):
                 if not isinstance(result, str) or not result.strip():
                     raise ValueError("Empty response")
                 return result.strip()
-        except (URLError, OSError, ValueError, KeyError, TypeError) as exc:
+        except (URLError, HTTPException, OSError, ValueError, KeyError, TypeError) as exc:
             raise BackendError(f"Could not reach Ollama model '{self.model}'. Start Ollama and run: ollama pull {self.model}") from exc
