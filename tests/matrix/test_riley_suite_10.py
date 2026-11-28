@@ -35,3 +35,6 @@ def test_ui_astryx_invariant_008() -> None:
 def test_ui_astryx_invariant_009() -> None:
     assert 'class="version"' not in _HTML
 
+def test_ui_astryx_invariant_010() -> None:
+    assert '<em>Riley.</em>' not in _HTML
+
