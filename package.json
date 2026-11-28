@@ -1,0 +1,12 @@
+{
+  "name": "riley-ui-checks",
+  "private": true,
+  "scripts": {
+    "check": "node --check riley/static/app.js",
+    "test": "node --test tests/ui.test.cjs"
+  },
+  "devDependencies": {
+    "jsdom": "^26.1.0",
+    "prettier": "^3.6.2"
+  }
+}

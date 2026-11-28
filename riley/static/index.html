@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark light" />
+    <title>Riley · NovaForge</title>
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <aside class="sidebar" aria-label="Conversations">
+      <a class="brand" href="/" aria-label="Riley home"
+        ><span class="brand-symbol">r<span>✦</span></span>
+        <div>riley<span class="byline">BY NOVAFORGE</span></div></a
+      >
+      <button id="new-chat" class="new-chat">
+        <span>＋</span> New conversation <kbd>N</kbd>
+      </button>
+      <div class="section-label">YOUR CONVERSATIONS</div>
+      <nav id="chat-list" aria-label="Saved conversations"></nav>
+      <div class="sidebar-bottom">
+        <div class="privacy">
+          <span class="status-dot"></span>
+          <div>
+            Your space. Your conversations.<small>Saved on this computer</small>
+          </div>
+        </div>
+        <button id="settings-open" class="settings-button">
+          <span>⚙</span> Preferences <span>↗</span>
+        </button>
+        <div class="workspace">
+          <span class="user-avatar">Y</span>
+          <div>Personal workspace<small>Made for your everyday</small></div>
+          <button
+            id="theme"
+            class="icon-button"
+            aria-label="Toggle color theme"
+          >
+            ◐
+          </button>
+        </div>
+      </div>
+    </aside>
+    <main>
+      <header>
+        <div class="header-title">
+          <span class="tiny-spark">✦</span> Personal assistant
+          <span class="version">BETA</span>
+        </div>
+        <div class="header-actions">
+          <button
+            id="mobile-settings"
+            class="icon-button mobile-only"
+            aria-label="Open preferences"
+          >
+            ⚙</button
+          ><button
+            id="mobile-theme"
+            class="icon-button mobile-only"
+            aria-label="Change color theme"
+          >
+            ◐</button
+          ><span id="mode-label" class="mode-pill">Built-in · offline</span
+          ><button
+            id="export"
+            class="icon-button"
+            aria-label="Export conversation"
+            title="Export conversation"
+          >
+            ↓</button
+          ><button
+            id="delete"
+            class="icon-button"
+            aria-label="Delete conversation"
+            title="Delete conversation"
+          >
+            ⌫
+          </button>
+        </div>
+      </header>
+      <section class="conversation" id="conversation" aria-label="Conversation">
+        <div class="welcome" id="welcome">
+          <div class="eyebrow">
+            <span></span> A LITTLE INTELLIGENCE. A HUMAN TOUCH.
+          </div>
+          <div class="orb" aria-hidden="true">
+            <div class="orb-core">✦</div>
+          </div>
+          <h1>A clearer mind.<br />A little help from <em>Riley.</em></h1>
+          <p>
+            A thought, a question, a small everyday task.<br />Let’s figure it
+            out together.
+          </p>
+          <div class="suggestions">
+            <button data-prompt="Hello Riley">
+              <span class="card-icon lavender">✦</span
+              ><strong>Start a conversation</strong
+              ><small>A simple hello goes a long way</small
+              ><span class="card-arrow">↗</span></button
+            ><button data-prompt="calculate (1250 * 12) / 100">
+              <span class="card-icon peach">⌗</span
+              ><strong>Work out the numbers</strong
+              ><small>Make a quick calculation</small
+              ><span class="card-arrow">↗</span></button
+            ><button data-prompt="What can you help me with?">
+              <span class="card-icon mint">☷</span
+              ><strong>Explore what’s possible</strong
+              ><small>Get to know your assistant</small
+              ><span class="card-arrow">↗</span>
+            </button>
+          </div>
+          <div class="welcome-note">YOUR EVERYDAY, A LITTLE EASIER</div>
+        </div>
+        <div
+          id="messages"
+          class="messages"
+          role="log"
+          aria-label="Messages"
+          aria-live="polite"
+        ></div>
+      </section>
+      <div class="composer-area">
+        <div id="notice" class="notice" role="status" hidden></div>
+        <div id="busy" class="busy" role="status" hidden>
+          <span class="status-dot"></span> Riley is thinking…
+        </div>
+        <form id="composer">
+          <label class="sr-only" for="prompt">Message Riley</label
+          ><textarea
+            id="prompt"
+            rows="1"
+            maxlength="12000"
+            placeholder="What’s on your mind?"
+            required
+          ></textarea>
+          <div class="composer-toolbar">
+            <div>
+              <button
+                type="button"
+                id="mic"
+                class="tool-button"
+                aria-label="Dictate a message"
+              >
+                ♩ <span>Voice input</span></button
+              ><span class="toolbar-divider"></span
+              ><label class="sr-only" for="language">Response language</label
+              ><select id="language" aria-label="Response language">
+                <option value="en">English</option>
+                <option value="hi">हिन्दी</option>
+                <option value="fr">Français</option>
+                <option value="es">Español</option>
+                <option value="bn">বাংলা</option>
+                <option value="sa">संस्कृतम्</option>
+              </select>
+            </div>
+            <div>
+              <button
+                type="button"
+                id="voice"
+                class="tool-button"
+                aria-pressed="false"
+                title="Read new replies aloud"
+              >
+                Voice off</button
+              ><button
+                id="send"
+                type="submit"
+                class="send-button"
+                aria-label="Send message"
+              >
+                ↑
+              </button>
+            </div>
+          </div>
+        </form>
+        <p class="composer-note">
+          <span>✦</span>
+          <span id="capability-note"
+            >Built-in mode handles greetings, time, date and arithmetic.</span
+          >
+          <span class="key-hint"
+            >Enter to send · Shift + Enter for a new line</span
+          >
+        </p>
+      </div>
+    </main>
+    <dialog id="settings">
+      <form method="dialog" class="dialog-content">
+        <div class="dialog-heading">
+          <div>
+            <div class="section-label">MAKE YOURSELF AT HOME</div>
+            <h2>Your Riley, your way.</h2>
+          </div>
+          <button class="icon-button" aria-label="Close preferences">×</button>
+        </div>
+        <label for="backend">Conversation engine</label
+        ><select id="backend">
+          <option value="local">Built-in · simple offline assistant</option>
+          <option value="ollama">Ollama · local AI model</option>
+          <option value="echo">Echo · development testing</option>
+        </select>
+        <p>
+          Built-in mode needs no downloads. Ollama supports open-ended
+          conversations using a model on your computer.
+        </p>
+        <label for="model">Ollama model</label
+        ><input id="model" maxlength="100" placeholder="llama3.2" />
+        <p>
+          Install Ollama separately, start it, then run
+          <code>ollama pull llama3.2</code>. Your selected model must already be
+          downloaded.
+        </p>
+        <label for="voice-select">Speaking voice</label
+        ><select id="voice-select">
+          <option value="">Automatic · prefer a feminine voice</option>
+        </select>
+        <p>
+          Voice availability depends on your browser and installed languages.
+          Browser dictation may use an online recognition service; your browser
+          asks for microphone access when you start it.
+        </p>
+        <div class="settings-footer">
+          <span>NovaForge · RILEY</span
+          ><button value="save" class="primary-button">Save preferences</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="confirm-delete">
+      <form method="dialog" class="dialog-content">
+        <h2>Delete this conversation?</h2>
+        <p>
+          This removes its saved messages from this computer. Export a copy
+          first if you want to keep it.
+        </p>
+        <div class="settings-footer">
+          <button value="cancel" class="tool-button">Keep conversation</button
+          ><button value="delete" class="primary-button danger">
+            Delete conversation
+          </button>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>

@@ -1,29 +1,22 @@
-# Proposed Roadmap
+# Riley roadmap
 
-Everything in this document is proposed. It is not a promise of delivery or a description of current capability.
+## Available now
 
-## Near term
+A graphical local chat app, six text languages, saved conversations, browser speech controls, deterministic offline tasks, optional Ollama conversations, CLI compatibility, Windows source launch and an executable build workflow.
 
-- Expand deterministic intents and multilingual test coverage
-- Improve offline speech recognition language packs and diagnostics
-- Add a simple desktop interface while keeping the core package UI-independent
-- Add Windows CI and verify voice and microphone behavior on Windows hardware
-- Add export, retention, and user controls for local conversation history
+## Next validation
 
-## Later
+- Complete Windows workflow checks and a physical Windows launch/audio smoke test.
+- Review the UI visually on desktop and small screens and test screen-reader navigation.
+- Test real Ollama models on supported hardware and evaluate their language quality.
+- Add signed distribution artifacts and an installer if NovaForge chooses a distribution licence.
 
-- Add optional, explicitly configured model-backed conversation providers
-- Add user-approved memory and preference storage
-- Add reminders, calendar, email, and document integrations behind clear permission boundaries
-- Add image understanding through a separately configured vision provider
-- Add packaging and signed releases for macOS and Windows
+## Future features — not implemented
 
-## Long-term research
+- Searchable long-term memory and user profiles.
+- Calendar, email and reminder integrations with explicit permission boundaries.
+- Wake-word support and background operation.
+- Image understanding and other multimodal input.
+- Native mobile apps and richer desktop integration.
 
-- Wake-word activation with visible listening state
-- Multimodal assistance
-- Permission-based multi-step workflows
-- Local-first models and on-device personalization
-- Accessibility testing across voice, keyboard, and screen-reader use
-
-Roadmap items move to the implemented list only after code exists and relevant tests or manual verification are recorded.
+Each external-action integration needs a clear data flow, authorization, error recovery and tests before it is described as available.

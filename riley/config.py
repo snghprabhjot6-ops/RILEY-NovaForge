@@ -33,6 +33,8 @@ def _as_bool(value: str | None, default: bool) -> bool:
 @dataclass(frozen=True, slots=True)
 class Settings:
     backend: str = "local"
+    ollama_url: str = "http://127.0.0.1:11434"
+    ollama_model: str = "llama3.2"
     language: str = "en"
     voice_enabled: bool = True
     voice_name: str = "Samantha"
@@ -49,6 +51,8 @@ class Settings:
 
         settings = cls(
             backend=os.getenv("RILEY_BACKEND", "local").strip().lower(),
+            ollama_url=os.getenv("RILEY_OLLAMA_URL", "http://127.0.0.1:11434").rstrip("/"),
+            ollama_model=os.getenv("RILEY_OLLAMA_MODEL", "llama3.2").strip(),
             language=os.getenv("RILEY_LANGUAGE", "en").strip().lower(),
             voice_enabled=_as_bool(os.getenv("RILEY_VOICE_ENABLED"), True),
             voice_name=os.getenv("RILEY_VOICE_NAME", "Samantha").strip(),
@@ -60,8 +64,14 @@ class Settings:
         return settings
 
     def validate(self) -> None:
-        if self.backend not in {"local", "echo"}:
-            raise ConfigurationError("RILEY_BACKEND must be 'local' or 'echo'")
+        if self.backend not in {"local", "echo", "ollama"}:
+            raise ConfigurationError("RILEY_BACKEND must be 'local', 'echo', or 'ollama'")
+        from urllib.parse import urlparse
+        url = urlparse(self.ollama_url)
+        if url.scheme != "http" or url.hostname not in {"127.0.0.1", "localhost", "::1"} or url.username or url.password or url.query or url.fragment or url.path not in {"", "/"}:
+            raise ConfigurationError("RILEY_OLLAMA_URL must be a local HTTP Ollama address")
+        if not self.ollama_model or len(self.ollama_model) > 100:
+            raise ConfigurationError("Set a valid RILEY_OLLAMA_MODEL")
         if self.language not in SUPPORTED_LANGUAGES:
             supported = ", ".join(sorted(SUPPORTED_LANGUAGES))
             raise ConfigurationError(f"Unsupported language {self.language!r}. Choose: {supported}")

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import ast
 import operator
+import math
 import re
 from collections.abc import Sequence
 from datetime import datetime
@@ -64,22 +65,27 @@ def _safe_calculate(expression: str) -> int | float:
         raise ValueError("Expression is too long")
     tree = ast.parse(expression, mode="eval")
 
+    def bounded(value: int | float) -> int | float:
+        if isinstance(value, complex) or abs(value) > 1_000_000_000_000 or not math.isfinite(value):
+            raise ValueError("Result is outside the supported range")
+        return value
+
     def evaluate(node: ast.AST) -> int | float:
         if isinstance(node, ast.Expression):
             return evaluate(node.body)
         if isinstance(node, ast.Constant) and type(node.value) in {int, float}:
-            return node.value
+            return bounded(node.value)
         if isinstance(node, ast.BinOp) and type(node.op) in _BINARY:
             left, right = evaluate(node.left), evaluate(node.right)
             if isinstance(node.op, ast.Pow) and abs(right) > 10:
                 raise ValueError("Exponent is too large")
-            return _BINARY[type(node.op)](left, right)
+            return bounded(_BINARY[type(node.op)](left, right))
         if isinstance(node, ast.UnaryOp) and type(node.op) in _UNARY:
-            return _UNARY[type(node.op)](evaluate(node.operand))
+            return bounded(_UNARY[type(node.op)](evaluate(node.operand)))
         raise ValueError("Unsupported expression")
 
     result = evaluate(tree)
-    if abs(result) > 1_000_000_000_000:
+    if isinstance(result, complex) or not math.isfinite(result) or abs(result) > 1_000_000_000_000:
         raise ValueError("Result is too large")
     return result
 
@@ -91,7 +97,7 @@ class LocalBackend(ConversationBackend):
         phrases = TEXT.get(language, TEXT["en"])
         prompt = next((message.content.strip() for message in reversed(messages) if message.role == "user"), "")
         normalized = prompt.casefold()
-        if any(word in normalized for word in ("hello", "hi", "hey", "नमस्ते", "bonjour", "hola", "নমস্কার")):
+        if re.search(r"\b(hello|hi|hey|bonjour|hola)\b", normalized) or any(word in normalized for word in ("नमस्ते", "নমস্কার")):
             return phrases["hello"]
         if any(word in normalized for word in ("help", "सहायता", "aide", "ayuda", "সাহায্য", "साहाय्य")):
             return phrases["help"]

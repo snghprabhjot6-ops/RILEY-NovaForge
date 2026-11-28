@@ -1,0 +1,4 @@
+# Optional: Python CLI microphone and portable speaker support.
+-r requirements.txt
+SpeechRecognition[audio,pocketsphinx]>=3.10,<4
+pyttsx3>=2.90,<3
