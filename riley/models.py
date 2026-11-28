@@ -13,10 +13,12 @@ class Message:
     created_at: str = ""
 
     def __post_init__(self) -> None:
+        if self.role not in {"user", "assistant", "system"}:
+            raise ValueError(f"Unsupported message role: {self.role!r}")
+        if not isinstance(self.content, str) or not self.content.strip():
+            raise ValueError("Message content cannot be empty")
         if not self.created_at:
             object.__setattr__(self, "created_at", datetime.now(timezone.utc).isoformat())
-        if not self.content.strip():
-            raise ValueError("Message content cannot be empty")
 
     def to_dict(self) -> dict[str, str]:
         return asdict(self)
