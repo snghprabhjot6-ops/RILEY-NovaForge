@@ -29,3 +29,6 @@ def test_ui_astryx_invariant_006() -> None:
 def test_ui_astryx_invariant_007() -> None:
     assert '#c5aff6' not in _STYLE and '#7450b9' not in _STYLE
 
+def test_ui_astryx_invariant_008() -> None:
+    assert 'class="orb"' not in _HTML
+
