@@ -89,3 +89,6 @@ def test_ui_astryx_invariant_026() -> None:
 def test_ui_astryx_invariant_027() -> None:
     assert 'forced-colors: active' in _ASTRYX
 
+def test_ui_astryx_invariant_028() -> None:
+    assert 'prefers-reduced-motion: reduce' in _ASTRYX
+
