@@ -287,3 +287,6 @@ def test_ui_astryx_invariant_092() -> None:
 def test_ui_astryx_invariant_093() -> None:
     assert '--font-weight-bold' in _ASTRYX
 
+def test_ui_astryx_invariant_094() -> None:
+    assert '--font-size-sm' in _ASTRYX
+
