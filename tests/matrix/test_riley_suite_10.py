@@ -146,3 +146,6 @@ def test_ui_astryx_invariant_045() -> None:
 def test_ui_astryx_invariant_046() -> None:
     assert 'id="export"' in _HTML
 
+def test_ui_astryx_invariant_047() -> None:
+    assert 'id="delete"' in _HTML
+
