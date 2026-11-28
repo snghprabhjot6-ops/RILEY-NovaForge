@@ -269,3 +269,6 @@ def test_ui_astryx_invariant_086() -> None:
 def test_ui_astryx_invariant_087() -> None:
     assert '--shadow-high' in _ASTRYX
 
+def test_ui_astryx_invariant_088() -> None:
+    assert '--font-family-body' in _ASTRYX
+
