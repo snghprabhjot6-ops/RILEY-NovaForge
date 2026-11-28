@@ -65,6 +65,7 @@ CASES: list[tuple[str, str, str]] = [
     ('fr', 'Riley echo check #4958 [fr]', 'You said: Riley echo check #4958 [fr]'),
     ('es', 'Riley echo check #4959 [es]', 'You said: Riley echo check #4959 [es]'),
     ('bn', 'Riley echo check #4960 [bn]', 'You said: Riley echo check #4960 [bn]'),
+    ('sa', 'Riley echo check #4961 [sa]', 'You said: Riley echo check #4961 [sa]'),
 ]
 
 
