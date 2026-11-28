@@ -147,3 +147,7 @@ def test_arith_punct_bare_036() -> None:
     reply = _BACKEND.generate([Message('user', 'what is (46 + 3) * 2!')], 'en')
     assert reply == 'The answer is 98.'
 
+def test_arith_punct_bare_037() -> None:
+    reply = _BACKEND.generate([Message('user', '47 * 4 - 37.')], 'en')
+    assert reply == 'The answer is 151.'
+
