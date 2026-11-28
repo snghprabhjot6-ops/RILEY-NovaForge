@@ -115,3 +115,7 @@ def test_multilingual_bn_time_028() -> None:
     reply = _BACKEND.generate([Message('user', 'এখন সময় কত', language='bn')], 'bn')
     assert reply.startswith(TEXT['bn']['time'].split('{value}')[0])
 
+def test_multilingual_bn_date_029() -> None:
+    reply = _BACKEND.generate([Message('user', 'আজকের তারিখ', language='bn')], 'bn')
+    assert reply.startswith(TEXT['bn']['date'].split('{value}')[0])
+
