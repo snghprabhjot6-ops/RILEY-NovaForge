@@ -293,3 +293,6 @@ def test_ui_astryx_invariant_094() -> None:
 def test_ui_astryx_invariant_095() -> None:
     assert '--font-size-base' in _ASTRYX
 
+def test_ui_astryx_invariant_096() -> None:
+    assert '--font-size-lg' in _ASTRYX
+
