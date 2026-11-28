@@ -158,3 +158,6 @@ def test_ui_astryx_invariant_049() -> None:
 def test_ui_astryx_invariant_050() -> None:
     assert 'id="send"' in _HTML
 
+def test_ui_astryx_invariant_051() -> None:
+    assert '--spacing-1' in _ASTRYX
+
