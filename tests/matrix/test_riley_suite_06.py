@@ -268,3 +268,7 @@ def test_settings_reject_url_059() -> None:
     with pytest.raises(ConfigurationError):
         Settings(ollama_url='ftp://127.0.0.1:11434').validate()
 
+def test_settings_reject_url_060() -> None:
+    with pytest.raises(ConfigurationError):
+        Settings(ollama_url='https://127.0.0.1:11434').validate()
+
