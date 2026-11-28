@@ -78,12 +78,20 @@ def test_busy_backend_returns_conflict(app):
 
 
 def test_static_assets_and_path_traversal(app):
-    for path in ('/', '/app.js', '/style.css', '/icon.svg'):
+    for path in ('/', '/?v=1', '/app.js', '/style.css', '/astryx.css', '/icon.svg'):
         with urlopen(f'http://127.0.0.1:{app.server_port}{path}') as response:
             assert response.status == 200
             assert response.headers['X-Content-Type-Options'] == 'nosniff'
+            assert response.headers['X-Frame-Options'] == 'DENY'
+            assert response.headers['Referrer-Policy'] == 'no-referrer'
             assert "frame-ancestors 'none'" in response.headers['Content-Security-Policy']
     assert request(app, '/../.env')[0] == 404
+
+
+def test_invalid_chat_id_types_return_bad_request(app):
+    assert request(app, '/api/chat', {'chat_id': [], 'prompt': 'hello'})[0] == 400
+    assert request(app, '/api/delete', {'chat_id': None})[0] == 400
+    assert request(app, '/api/chats/')[0] == 404
 
 
 def test_store_persists_and_isolates_chats(tmp_path: Path):
