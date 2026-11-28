@@ -14,3 +14,6 @@ def test_ui_astryx_invariant_001() -> None:
 def test_ui_astryx_invariant_002() -> None:
     assert 'data-astryx-theme="neutral"' in _HTML
 
+def test_ui_astryx_invariant_003() -> None:
+    assert 'href="/astryx.css"' in _HTML
+
