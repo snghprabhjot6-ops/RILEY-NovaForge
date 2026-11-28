@@ -183,3 +183,7 @@ def test_multilingual_hi_thanks_045() -> None:
     reply = _BACKEND.generate([Message('user', 'धन्यवाद #45', language='hi')], 'hi')
     assert reply == TEXT['hi']['thanks']
 
+def test_multilingual_hi_time_046() -> None:
+    reply = _BACKEND.generate([Message('user', 'समय क्या है #46', language='hi')], 'hi')
+    assert reply.startswith(TEXT['hi']['time'].split('{value}')[0])
+
