@@ -479,3 +479,7 @@ def test_factory_local_087() -> None:
     backend = create_backend('local')
     assert isinstance(backend, LocalBackend)
 
+def test_factory_local_088() -> None:
+    backend = create_backend('local')
+    assert isinstance(backend, LocalBackend)
+
