@@ -101,6 +101,7 @@ CASES: list[str] = [
     'Record outdated status entry 8194',
     'Record sometimes status entry 8195',
     'Record lifetime status entry 8196',
+    'Record overtime status entry 8197',
 ]
 
 
