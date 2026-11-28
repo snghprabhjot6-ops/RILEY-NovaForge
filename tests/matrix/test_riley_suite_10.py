@@ -128,3 +128,6 @@ def test_ui_astryx_invariant_039() -> None:
 def test_ui_astryx_invariant_040() -> None:
     assert all(ch not in _HTML for ch in ('＋', '⚙', '◐', '⌫', '♩', '⌗', '☷', '◌'))
 
+def test_ui_astryx_invariant_041() -> None:
+    assert 'id="new-chat"' in _HTML
+
