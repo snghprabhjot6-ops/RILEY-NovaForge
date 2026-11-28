@@ -20,6 +20,7 @@ CASES: list[tuple[str, str]] = [
     ('(1038 % 12) + 13?', 'The answer is 19.'),
     ('calculate 8 ** 2 + 14.', 'The answer is 78.'),
     ('calculate 1022 + 10 * 4!', 'The answer is 1062.'),
+    ('what is (61 - 5) * 3', 'The answer is 168.'),
 ]
 
 
