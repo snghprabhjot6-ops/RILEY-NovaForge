@@ -41,3 +41,6 @@ def test_ui_astryx_invariant_010() -> None:
 def test_ui_astryx_invariant_011() -> None:
     assert 'YOUR CONVERSATIONS' not in _HTML
 
+def test_ui_astryx_invariant_012() -> None:
+    assert 'MAKE YOURSELF AT HOME' not in _HTML
+
