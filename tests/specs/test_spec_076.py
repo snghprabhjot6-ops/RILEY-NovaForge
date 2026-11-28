@@ -66,6 +66,7 @@ CASES: list[str] = [
     'Record runtime status entry 7559',
     'Record update status entry 7560',
     'Record candidate status entry 7561',
+    'Record validate status entry 7562',
 ]
 
 
