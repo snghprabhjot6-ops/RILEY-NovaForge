@@ -103,6 +103,7 @@ CASES: list[str] = [
     'Record commercial status entry 8396',
     'Record integrate status entry 8397',
     'Record parameter status entry 8398',
+    'Record runtime status entry 8399',
 ]
 
 
