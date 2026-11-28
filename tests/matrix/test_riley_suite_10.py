@@ -26,3 +26,6 @@ def test_ui_astryx_invariant_005() -> None:
 def test_ui_astryx_invariant_006() -> None:
     assert '#b8a3f5' not in _ICON and '#c5aff6' not in _ICON
 
+def test_ui_astryx_invariant_007() -> None:
+    assert '#c5aff6' not in _STYLE and '#7450b9' not in _STYLE
+
