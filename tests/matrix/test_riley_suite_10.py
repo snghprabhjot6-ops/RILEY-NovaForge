@@ -263,3 +263,6 @@ def test_ui_astryx_invariant_084() -> None:
 def test_ui_astryx_invariant_085() -> None:
     assert '--shadow-low' in _ASTRYX
 
+def test_ui_astryx_invariant_086() -> None:
+    assert '--shadow-med' in _ASTRYX
+
