@@ -71,3 +71,8 @@ def test_message_roundtrip_014() -> None:
     restored = Message.from_dict(msg.to_dict())
     assert restored == msg
 
+def test_message_roundtrip_015() -> None:
+    msg = Message(role='user', content='Riley message payload #15 · नमस्ते · Bonjour', language='es')
+    restored = Message.from_dict(msg.to_dict())
+    assert restored == msg
+
