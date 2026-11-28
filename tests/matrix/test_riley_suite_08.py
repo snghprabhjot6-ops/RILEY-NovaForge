@@ -495,3 +495,7 @@ def test_factory_unknown_091() -> None:
     with pytest.raises(ValueError):
         create_backend('unknown_backend_91')
 
+def test_factory_unknown_092() -> None:
+    with pytest.raises(ValueError):
+        create_backend('unknown_backend_92')
+
