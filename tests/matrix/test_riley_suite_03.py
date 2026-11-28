@@ -335,3 +335,7 @@ def test_arith_safety_083() -> None:
     reply = _BACKEND.generate([Message('user', 'calculate (23 + 1) % 0')], 'en')
     assert 'safely' in reply
 
+def test_arith_safety_084() -> None:
+    reply = _BACKEND.generate([Message('user', 'calculate 1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+24')], 'en')
+    assert 'safely' in reply
+
