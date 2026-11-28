@@ -62,6 +62,7 @@ CASES: list[str] = [
     'Record sometimes status entry 7955',
     'Record lifetime status entry 7956',
     'Record overtime status entry 7957',
+    'Record daytime status entry 7958',
 ]
 
 
