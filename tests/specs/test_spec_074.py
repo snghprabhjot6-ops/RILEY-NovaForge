@@ -34,6 +34,7 @@ CASES: list[str] = [
     'Record overtime status entry 7327',
     'Record daytime status entry 7328',
     'Record nighttime status entry 7329',
+    'Record helpful status entry 7330',
 ]
 
 
