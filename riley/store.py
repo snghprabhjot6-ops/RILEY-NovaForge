@@ -29,6 +29,7 @@ class ChatStore:
     def connect(self):
         db = sqlite3.connect(self.path, timeout=10)
         db.row_factory = sqlite3.Row
+        db.execute('PRAGMA busy_timeout = 5000')
         db.execute('PRAGMA foreign_keys = ON')
         try:
             with db:
@@ -62,7 +63,8 @@ class ChatStore:
                 db.execute('INSERT INTO messages(chat_id,role,content,language,created_at) VALUES (?,?,?,?,?)',
                            (chat_id, m.role, m.content, m.language, m.created_at))
             if first:
-                db.execute('UPDATE chats SET title=? WHERE id=?', (prompt.content[:55], chat_id))
+                title = " ".join(prompt.content.split())[:55] or "New conversation"
+                db.execute('UPDATE chats SET title=? WHERE id=?', (title, chat_id))
 
     def delete(self, chat_id: str):
         with self.connect() as db:
