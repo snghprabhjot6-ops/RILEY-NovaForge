@@ -167,3 +167,7 @@ def test_multilingual_en_date_041() -> None:
     reply = _BACKEND.generate([Message('user', "What is today's date? #41", language='en')], 'en')
     assert reply.startswith(TEXT['en']['date'].split('{value}')[0])
 
+def test_multilingual_en_unknown_042() -> None:
+    reply = _BACKEND.generate([Message('user', 'random topic alpha #42', language='en')], 'en')
+    assert reply == TEXT['en']['unknown']
+
