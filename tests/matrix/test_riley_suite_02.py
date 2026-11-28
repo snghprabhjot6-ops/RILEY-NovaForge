@@ -155,3 +155,7 @@ def test_arith_compound_038() -> None:
     reply = _BACKEND.generate([Message('user', 'calc (651 % 7) + 38')], 'en')
     assert reply == 'The answer is 38.'
 
+def test_arith_compound_039() -> None:
+    reply = _BACKEND.generate([Message('user', 'calc (5 ** 4) + 39')], 'en')
+    assert reply == 'The answer is 664.'
+
