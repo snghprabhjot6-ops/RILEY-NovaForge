@@ -290,3 +290,6 @@ def test_ui_astryx_invariant_093() -> None:
 def test_ui_astryx_invariant_094() -> None:
     assert '--font-size-sm' in _ASTRYX
 
+def test_ui_astryx_invariant_095() -> None:
+    assert '--font-size-base' in _ASTRYX
+
