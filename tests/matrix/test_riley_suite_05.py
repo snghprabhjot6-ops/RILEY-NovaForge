@@ -331,3 +331,7 @@ def test_multilingual_hi_time_082() -> None:
     reply = _BACKEND.generate([Message('user', 'समय क्या है #82', language='hi')], 'hi')
     assert reply.startswith(TEXT['hi']['time'].split('{value}')[0])
 
+def test_multilingual_hi_date_083() -> None:
+    reply = _BACKEND.generate([Message('user', 'आज की तारीख #83', language='hi')], 'hi')
+    assert reply.startswith(TEXT['hi']['date'].split('{value}')[0])
+
