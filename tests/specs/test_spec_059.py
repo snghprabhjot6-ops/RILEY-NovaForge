@@ -6,6 +6,7 @@ _BACKEND = EchoBackend()
 
 CASES: list[tuple[str, str, str]] = [
     ('sa', 'Riley echo check #5801 [sa]', 'You said: Riley echo check #5801 [sa]'),
+    ('en', 'Riley echo check #5802 [en]', 'You said: Riley echo check #5802 [en]'),
 ]
 
 
