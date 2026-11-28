@@ -23,3 +23,6 @@ def test_ui_astryx_invariant_004() -> None:
 def test_ui_astryx_invariant_005() -> None:
     assert '✦' not in _APP
 
+def test_ui_astryx_invariant_006() -> None:
+    assert '#b8a3f5' not in _ICON and '#c5aff6' not in _ICON
+
