@@ -308,3 +308,7 @@ def test_settings_reject_model_069() -> None:
     with pytest.raises(ConfigurationError):
         Settings(ollama_model='llama 3.2').validate()
 
+def test_settings_reject_model_070() -> None:
+    with pytest.raises(ConfigurationError):
+        Settings(ollama_model='model\tname').validate()
+
