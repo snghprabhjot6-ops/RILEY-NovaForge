@@ -446,3 +446,7 @@ def test_store_title_norm_068(tmp_path: Path) -> None:
     store.append_turn(chat['id'], Message('user', '  Line one 68\n\t  line two  '), Message('assistant', 'ok'))
     assert store.list()[0]['title'] == 'Line one 68 line two'
 
+def test_history_bad_limit_069(tmp_path: Path) -> None:
+    with pytest.raises(ValueError):
+        ConversationHistory(tmp_path / 'bad_69.json', max_messages=-1)
+
