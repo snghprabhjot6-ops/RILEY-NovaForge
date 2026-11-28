@@ -236,3 +236,6 @@ def test_ui_astryx_invariant_075() -> None:
 def test_ui_astryx_invariant_076() -> None:
     assert '--color-error-muted' in _ASTRYX
 
+def test_ui_astryx_invariant_077() -> None:
+    assert '--color-on-error-muted' in _ASTRYX
+
