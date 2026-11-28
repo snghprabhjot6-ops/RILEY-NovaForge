@@ -164,3 +164,6 @@ def test_ui_astryx_invariant_051() -> None:
 def test_ui_astryx_invariant_052() -> None:
     assert '--spacing-2' in _ASTRYX
 
+def test_ui_astryx_invariant_053() -> None:
+    assert '--spacing-3' in _ASTRYX
+
