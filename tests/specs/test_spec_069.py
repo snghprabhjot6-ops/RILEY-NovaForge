@@ -67,6 +67,7 @@ CASES: list[str] = [
     'Record whisper status entry 6860',
     'Record archive status entry 6861',
     'Record thinking status entry 6862',
+    'Record vehicle status entry 6863',
 ]
 
 
