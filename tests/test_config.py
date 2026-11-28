@@ -35,3 +35,11 @@ def test_invalid_language_is_rejected(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("RILEY_LANGUAGE", "xx")
     with pytest.raises(ConfigurationError):
         Settings.from_env(Path("/definitely/missing/.env"))
+
+
+def test_invalid_ollama_port_and_model_whitespace_rejected() -> None:
+    from riley.config import Settings as Cfg
+    with pytest.raises(ConfigurationError):
+        Cfg(ollama_url="http://127.0.0.1:99999").validate()
+    with pytest.raises(ConfigurationError):
+        Cfg(ollama_model="bad model").validate()

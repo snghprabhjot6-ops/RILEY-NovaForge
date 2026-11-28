@@ -29,3 +29,8 @@ def test_malformed_history_is_reported(tmp_path: Path) -> None:
     path.write_text(json.dumps({"not": "a list"}), encoding="utf-8")
     with pytest.raises(ValueError):
         ConversationHistory(path).load()
+
+
+def test_history_rejects_non_positive_limit(tmp_path: Path) -> None:
+    with pytest.raises(ValueError):
+        ConversationHistory(tmp_path / "history.json", max_messages=0)
