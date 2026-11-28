@@ -352,3 +352,6 @@ def test_settings_reject_model_080() -> None:
     with pytest.raises(ConfigurationError):
         Settings(ollama_model='mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm').validate()
 
+def test_settings_bool_081() -> None:
+    assert _as_bool('1', True) is True
+
