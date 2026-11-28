@@ -49,7 +49,7 @@ class VoiceOutput:
         voice = self._select_macos_voice()
         if voice:
             command.extend(["-v", voice])
-        command.append(text)
+        command.extend(["--", text])
         try:
             subprocess.run(command, check=True, timeout=120)
         except (OSError, subprocess.SubprocessError) as exc:
