@@ -32,3 +32,6 @@ def test_ui_astryx_invariant_007() -> None:
 def test_ui_astryx_invariant_008() -> None:
     assert 'class="orb"' not in _HTML
 
+def test_ui_astryx_invariant_009() -> None:
+    assert 'class="version"' not in _HTML
+
