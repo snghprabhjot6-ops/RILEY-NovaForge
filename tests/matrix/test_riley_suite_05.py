@@ -343,3 +343,7 @@ def test_multilingual_fr_hello_085() -> None:
     reply = _BACKEND.generate([Message('user', 'bonjour #85', language='fr')], 'fr')
     assert reply == TEXT['fr']['hello']
 
+def test_multilingual_fr_help_086() -> None:
+    reply = _BACKEND.generate([Message('user', "besoin d'aide #86", language='fr')], 'fr')
+    assert reply == TEXT['fr']['help']
+
