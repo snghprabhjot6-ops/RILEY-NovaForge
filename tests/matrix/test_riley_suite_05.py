@@ -103,3 +103,7 @@ def test_multilingual_bn_hello_025() -> None:
     reply = _BACKEND.generate([Message('user', 'নমস্কার', language='bn')], 'bn')
     assert reply == TEXT['bn']['hello']
 
+def test_multilingual_bn_help_026() -> None:
+    reply = _BACKEND.generate([Message('user', 'সাহায্য করুন', language='bn')], 'bn')
+    assert reply == TEXT['bn']['help']
+
