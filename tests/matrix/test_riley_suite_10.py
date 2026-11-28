@@ -281,3 +281,6 @@ def test_ui_astryx_invariant_090() -> None:
 def test_ui_astryx_invariant_091() -> None:
     assert '--font-weight-medium' in _ASTRYX
 
+def test_ui_astryx_invariant_092() -> None:
+    assert '--font-weight-semibold' in _ASTRYX
+
