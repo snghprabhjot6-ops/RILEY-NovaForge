@@ -212,3 +212,6 @@ def test_ui_astryx_invariant_067() -> None:
 def test_ui_astryx_invariant_068() -> None:
     assert '--color-neutral' in _ASTRYX
 
+def test_ui_astryx_invariant_069() -> None:
+    assert '--color-overlay-hover' in _ASTRYX
+
