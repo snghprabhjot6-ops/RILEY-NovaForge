@@ -197,3 +197,6 @@ def test_ui_astryx_invariant_062() -> None:
 def test_ui_astryx_invariant_063() -> None:
     assert '--radius-full' in _ASTRYX
 
+def test_ui_astryx_invariant_064() -> None:
+    assert '--color-background-body' in _ASTRYX
+
