@@ -87,3 +87,7 @@ def test_multilingual_es_thanks_021() -> None:
     reply = _BACKEND.generate([Message('user', 'muchas gracias', language='es')], 'es')
     assert reply == TEXT['es']['thanks']
 
+def test_multilingual_es_time_022() -> None:
+    reply = _BACKEND.generate([Message('user', 'que hora es', language='es')], 'es')
+    assert reply.startswith(TEXT['es']['time'].split('{value}')[0])
+
