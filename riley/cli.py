@@ -48,8 +48,11 @@ def main() -> int:
                 print("Riley: Conversation history cleared.")
                 continue
             if command == "/history":
-                for message in assistant.history.messages:
-                    print(f"{message.role.title()}: {message.content}")
+                if not assistant.history.messages:
+                    print("Riley: No conversation history yet.")
+                else:
+                    for message in assistant.history.messages:
+                        print(f"{message.role.title()}: {message.content}")
                 continue
             if command in {"/voice on", "/voice off"}:
                 voice_enabled = command.endswith("on")
@@ -57,7 +60,10 @@ def main() -> int:
                 continue
             if command == "/listen":
                 print("Riley: Listening…")
-                prompt = assistant.listen()
+                prompt = assistant.listen().strip()
+                if not prompt:
+                    print("Riley: I didn't hear anything. Try again or type a message.")
+                    continue
                 print(f"You: {prompt}")
             print(f"Riley: {assistant.respond(prompt, speak=voice_enabled)}")
         except (KeyboardInterrupt, EOFError):
