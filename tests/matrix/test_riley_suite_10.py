@@ -62,3 +62,6 @@ def test_ui_astryx_invariant_017() -> None:
 def test_ui_astryx_invariant_018() -> None:
     assert 'data-variant="destructive"' in _HTML
 
+def test_ui_astryx_invariant_019() -> None:
+    assert '@layer reset, astryx-base, astryx-theme;' in _ASTRYX
+
