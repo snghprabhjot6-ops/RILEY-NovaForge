@@ -152,3 +152,7 @@ def test_settings_valid_030() -> None:
     cfg.validate()
     assert cfg.language in SUPPORTED_LANGUAGES
 
+def test_settings_reject_url_031() -> None:
+    with pytest.raises(ConfigurationError):
+        Settings(ollama_url='http://192.168.1.1:11434').validate()
+
