@@ -98,3 +98,6 @@ def test_ui_astryx_invariant_029() -> None:
 def test_ui_astryx_invariant_030() -> None:
     assert 'var(--color-background-body)' in _STYLE
 
+def test_ui_astryx_invariant_031() -> None:
+    assert 'var(--color-background-surface)' in _STYLE
+
