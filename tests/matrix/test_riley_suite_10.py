@@ -203,3 +203,6 @@ def test_ui_astryx_invariant_064() -> None:
 def test_ui_astryx_invariant_065() -> None:
     assert '--color-background-surface' in _ASTRYX
 
+def test_ui_astryx_invariant_066() -> None:
+    assert '--color-accent' in _ASTRYX
+
