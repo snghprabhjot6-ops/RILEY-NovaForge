@@ -47,3 +47,6 @@ def test_ui_astryx_invariant_012() -> None:
 def test_ui_astryx_invariant_013() -> None:
     assert 'A LITTLE INTELLIGENCE' not in _HTML
 
+def test_ui_astryx_invariant_014() -> None:
+    assert 'id="new-chat"' in _HTML and 'data-astryx-component="button"' in _HTML
+
