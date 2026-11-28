@@ -139,3 +139,7 @@ def test_multilingual_sa_time_034() -> None:
     reply = _BACKEND.generate([Message('user', 'समय', language='sa')], 'sa')
     assert reply.startswith(TEXT['sa']['time'].split('{value}')[0])
 
+def test_multilingual_sa_date_035() -> None:
+    reply = _BACKEND.generate([Message('user', 'दिनाङ्क', language='sa')], 'sa')
+    assert reply.startswith(TEXT['sa']['date'].split('{value}')[0])
+
