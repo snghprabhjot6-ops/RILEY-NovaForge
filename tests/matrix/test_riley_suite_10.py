@@ -227,3 +227,6 @@ def test_ui_astryx_invariant_072() -> None:
 def test_ui_astryx_invariant_073() -> None:
     assert '--color-border' in _ASTRYX
 
+def test_ui_astryx_invariant_074() -> None:
+    assert '--color-border-emphasized' in _ASTRYX
+
