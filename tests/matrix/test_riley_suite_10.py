@@ -77,3 +77,6 @@ def test_ui_astryx_invariant_022() -> None:
 def test_ui_astryx_invariant_023() -> None:
     assert '.astryx-button[data-variant="ghost"]' in _ASTRYX
 
+def test_ui_astryx_invariant_024() -> None:
+    assert '.astryx-button[data-variant="destructive"]' in _ASTRYX
+
