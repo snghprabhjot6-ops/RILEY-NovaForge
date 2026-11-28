@@ -116,3 +116,6 @@ def test_ui_astryx_invariant_035() -> None:
 def test_ui_astryx_invariant_036() -> None:
     assert 'function createAstryxButton' in _APP
 
+def test_ui_astryx_invariant_037() -> None:
+    assert 'function createSvgIcon' in _APP
+
