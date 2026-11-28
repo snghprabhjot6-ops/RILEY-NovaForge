@@ -300,3 +300,9 @@ def test_echo_turn_049() -> None:
     reply = backend.generate([Message('user', 'earlier'), Message('assistant', 'ok'), Message('user', 'Echo verification turn 49', 'hi')], 'hi')
     assert reply == 'You said: Echo verification turn 49'
 
+def test_echo_turn_050() -> None:
+    backend = create_backend('echo')
+    assert isinstance(backend, EchoBackend)
+    reply = backend.generate([Message('user', 'earlier'), Message('assistant', 'ok'), Message('user', 'Echo verification turn 50', 'fr')], 'fr')
+    assert reply == 'You said: Echo verification turn 50'
+
