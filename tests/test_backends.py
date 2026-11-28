@@ -35,3 +35,17 @@ def test_greeting_does_not_match_inside_words():
 def test_calculation_rejects_complex_and_infinite_results():
     for prompt in ('calculate (-1)**0.5', 'calculate 1' + '0' * 99, 'calculate 9' + '**10' * 20):
         assert 'safely' in LocalBackend().generate(user_message(prompt), 'en')
+
+
+def test_intent_word_boundaries_prevent_false_matches():
+    backend = LocalBackend()
+    assert 'learning' in backend.generate(user_message('Can you update my notes?'), 'en')
+    assert 'learning' in backend.generate(user_message('Sometimes I write code'), 'en')
+    assert 'learning' in backend.generate(user_message('That is unhelpful'), 'en')
+
+
+def test_arithmetic_handles_punctuation_and_bare_expressions():
+    backend = LocalBackend()
+    assert '4' in backend.generate(user_message('what is 2 + 2?'), 'en')
+    assert '150.' in backend.generate(user_message('calculate (1250 * 12) / 100'), 'en')
+    assert '42' in backend.generate(user_message('6 * 7'), 'en')
