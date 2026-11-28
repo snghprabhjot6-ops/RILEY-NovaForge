@@ -12,6 +12,8 @@ class ConversationHistory:
     """Conversation history with an atomic JSON-file persistence layer."""
 
     def __init__(self, path: Path, max_messages: int = 200) -> None:
+        if max_messages < 1:
+            raise ValueError("max_messages must be at least 1")
         self.path = path
         self.max_messages = max_messages
         self._messages: list[Message] = []
