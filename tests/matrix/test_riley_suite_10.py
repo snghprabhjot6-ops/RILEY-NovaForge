@@ -188,3 +188,6 @@ def test_ui_astryx_invariant_059() -> None:
 def test_ui_astryx_invariant_060() -> None:
     assert '--radius-inner' in _ASTRYX
 
+def test_ui_astryx_invariant_061() -> None:
+    assert '--radius-element' in _ASTRYX
+
