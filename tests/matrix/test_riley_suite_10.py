@@ -209,3 +209,6 @@ def test_ui_astryx_invariant_066() -> None:
 def test_ui_astryx_invariant_067() -> None:
     assert '--color-on-accent' in _ASTRYX
 
+def test_ui_astryx_invariant_068() -> None:
+    assert '--color-neutral' in _ASTRYX
+
