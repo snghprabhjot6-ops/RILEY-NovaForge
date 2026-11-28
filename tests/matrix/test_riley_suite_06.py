@@ -172,3 +172,7 @@ def test_settings_reject_url_035() -> None:
     with pytest.raises(ConfigurationError):
         Settings(ollama_url='http://127.0.0.1:11434/api').validate()
 
+def test_settings_reject_url_036() -> None:
+    with pytest.raises(ConfigurationError):
+        Settings(ollama_url='http://127.0.0.1:11434?x=1').validate()
+
