@@ -385,3 +385,7 @@ def test_message_reject_role_079() -> None:
     with pytest.raises(ValueError):
         Message(role='invalid_role_79', content='hello')  # type: ignore[arg-type]
 
+def test_message_reject_role_080() -> None:
+    with pytest.raises(ValueError):
+        Message(role='invalid_role_80', content='hello')  # type: ignore[arg-type]
+
