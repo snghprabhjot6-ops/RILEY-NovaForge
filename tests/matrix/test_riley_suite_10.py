@@ -80,3 +80,6 @@ def test_ui_astryx_invariant_023() -> None:
 def test_ui_astryx_invariant_024() -> None:
     assert '.astryx-button[data-variant="destructive"]' in _ASTRYX
 
+def test_ui_astryx_invariant_025() -> None:
+    assert '.astryx-toggle-button[aria-pressed="true"]' in _ASTRYX
+
