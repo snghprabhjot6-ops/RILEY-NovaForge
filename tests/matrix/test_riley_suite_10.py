@@ -131,3 +131,6 @@ def test_ui_astryx_invariant_040() -> None:
 def test_ui_astryx_invariant_041() -> None:
     assert 'id="new-chat"' in _HTML
 
+def test_ui_astryx_invariant_042() -> None:
+    assert 'id="settings-open"' in _HTML
+
