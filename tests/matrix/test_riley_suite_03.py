@@ -243,3 +243,7 @@ def test_arith_punct_bare_060() -> None:
     reply = _BACKEND.generate([Message('user', 'what is (70 + 9) * 2?')], 'en')
     assert reply == 'The answer is 158.'
 
+def test_arith_safety_061() -> None:
+    reply = _BACKEND.generate([Message('user', 'calculate 2 ** 12')], 'en')
+    assert 'safely' in reply
+
