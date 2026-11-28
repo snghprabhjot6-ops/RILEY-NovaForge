@@ -20,3 +20,6 @@ def test_ui_astryx_invariant_003() -> None:
 def test_ui_astryx_invariant_004() -> None:
     assert '✦' not in _HTML
 
+def test_ui_astryx_invariant_005() -> None:
+    assert '✦' not in _APP
+
