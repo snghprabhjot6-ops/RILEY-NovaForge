@@ -19,3 +19,7 @@ def test_multilingual_en_time_004() -> None:
     reply = _BACKEND.generate([Message('user', 'What time is it?', language='en')], 'en')
     assert reply.startswith(TEXT['en']['time'].split('{value}')[0])
 
+def test_multilingual_en_date_005() -> None:
+    reply = _BACKEND.generate([Message('user', "What is today's date?", language='en')], 'en')
+    assert reply.startswith(TEXT['en']['date'].split('{value}')[0])
+
