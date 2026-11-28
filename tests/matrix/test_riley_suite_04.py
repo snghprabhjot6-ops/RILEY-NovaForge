@@ -267,3 +267,7 @@ def test_word_boundary_guard_066() -> None:
     reply = _BACKEND.generate([Message('user', 'Please review hollow item 66')], 'en')
     assert 'learning' in reply
 
+def test_word_boundary_guard_067() -> None:
+    reply = _BACKEND.generate([Message('user', 'Please review behold item 67')], 'en')
+    assert 'learning' in reply
+
