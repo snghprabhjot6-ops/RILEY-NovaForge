@@ -53,3 +53,6 @@ def test_ui_astryx_invariant_014() -> None:
 def test_ui_astryx_invariant_015() -> None:
     assert 'id="send"' in _HTML and 'data-astryx-component="icon-button"' in _HTML
 
+def test_ui_astryx_invariant_016() -> None:
+    assert 'id="voice"' in _HTML and 'data-astryx-component="toggle-button"' in _HTML
+
