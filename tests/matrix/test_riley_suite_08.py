@@ -306,3 +306,8 @@ def test_echo_turn_050() -> None:
     reply = backend.generate([Message('user', 'earlier'), Message('assistant', 'ok'), Message('user', 'Echo verification turn 50', 'fr')], 'fr')
     assert reply == 'You said: Echo verification turn 50'
 
+def test_factory_ollama_051() -> None:
+    backend = create_backend('ollama', Settings(ollama_model='llama3.2:v51'))
+    assert isinstance(backend, OllamaBackend)
+    assert backend.model == 'llama3.2:v51'
+
