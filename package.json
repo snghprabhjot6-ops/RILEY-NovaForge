@@ -3,10 +3,16 @@
   "private": true,
   "scripts": {
     "check": "node --check riley/static/app.js",
-    "test": "node --test tests/ui.test.cjs"
+    "test": "node --test tests/ui.test.cjs",
+    "sync-astryx": "node scripts/sync-astryx.mjs"
   },
   "devDependencies": {
     "jsdom": "^26.1.0",
     "prettier": "^3.6.2"
+  },
+  "dependencies": {
+    "@astryxdesign/cli": "^0.7.17",
+    "@astryxdesign/core": "^0.7.17",
+    "@astryxdesign/theme-neutral": "^0.7.17"
   }
 }
