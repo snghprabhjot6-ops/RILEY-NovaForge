@@ -179,3 +179,6 @@ def test_ui_astryx_invariant_056() -> None:
 def test_ui_astryx_invariant_057() -> None:
     assert '--size-element-sm' in _ASTRYX
 
+def test_ui_astryx_invariant_058() -> None:
+    assert '--size-element-md' in _ASTRYX
+
