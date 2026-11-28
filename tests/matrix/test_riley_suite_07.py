@@ -457,3 +457,7 @@ def test_message_reject_blank_097() -> None:
     with pytest.raises(ValueError):
         Message(role='user', content='\n\t ')
 
+def test_message_reject_blank_098() -> None:
+    with pytest.raises(ValueError):
+        Message(role='user', content='    ')
+
