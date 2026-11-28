@@ -255,3 +255,7 @@ def test_multilingual_bn_thanks_063() -> None:
     reply = _BACKEND.generate([Message('user', 'ধন্যবাদ #63', language='bn')], 'bn')
     assert reply == TEXT['bn']['thanks']
 
+def test_multilingual_bn_time_064() -> None:
+    reply = _BACKEND.generate([Message('user', 'এখন সময় কত #64', language='bn')], 'bn')
+    assert reply.startswith(TEXT['bn']['time'].split('{value}')[0])
+
