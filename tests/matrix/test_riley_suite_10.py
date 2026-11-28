@@ -86,3 +86,6 @@ def test_ui_astryx_invariant_025() -> None:
 def test_ui_astryx_invariant_026() -> None:
     assert '@scope ([data-astryx-theme="neutral"])' in _ASTRYX
 
+def test_ui_astryx_invariant_027() -> None:
+    assert 'forced-colors: active' in _ASTRYX
+
