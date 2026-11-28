@@ -331,3 +331,8 @@ def test_factory_ollama_055() -> None:
     assert isinstance(backend, OllamaBackend)
     assert backend.model == 'llama3.2:v55'
 
+def test_factory_ollama_056() -> None:
+    backend = create_backend('ollama', Settings(ollama_model='llama3.2:v56'))
+    assert isinstance(backend, OllamaBackend)
+    assert backend.model == 'llama3.2:v56'
+
