@@ -279,3 +279,7 @@ def test_arith_safety_069() -> None:
     reply = _BACKEND.generate([Message('user', 'calculate 1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+9')], 'en')
     assert 'safely' in reply
 
+def test_arith_safety_070() -> None:
+    reply = _BACKEND.generate([Message('user', 'calculate 10 / 0')], 'en')
+    assert 'safely' in reply
+
