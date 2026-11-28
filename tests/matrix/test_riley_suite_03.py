@@ -307,3 +307,7 @@ def test_arith_safety_076() -> None:
     reply = _BACKEND.generate([Message('user', 'calculate 2 ** 27')], 'en')
     assert 'safely' in reply
 
+def test_arith_safety_077() -> None:
+    reply = _BACKEND.generate([Message('user', 'calculate (-17) ** 0.5')], 'en')
+    assert 'safely' in reply
+
